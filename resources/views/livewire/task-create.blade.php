@@ -1,5 +1,5 @@
 <div x-data="{ category: '' }" class="flex justify-center mt-24 bg-gray-100 dark:bg-gray-900">
-    <form wire:submit.prevent="createTask" class="w-2/3 p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
+    <form wire:submit.prevent="createTask" class="w-11/12 sm:w-2/3 md:w-3/5 lg:w-2/5 p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
         <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Create a Task</h2>
 
         {{-- Session Messages --}}
