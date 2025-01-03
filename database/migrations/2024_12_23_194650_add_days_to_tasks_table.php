@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             $table->integer('daysPerWeek')
-                ->default(0);
+                ->default(0)->nullable();
+            $table->json('daysOfWeek')
+                ->nullable();
         });
     }
 
@@ -23,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            //
+            $table->dropColumn(['daysPerWeek', 'daysOfWeek']);
         });
     }
 };
