@@ -20,15 +20,29 @@
                         id="{{ $task->id }}" />
                 </div>
 
-                <div>
-                    <strong class="font-medium text-gray-900 dark:text-white"> {{ $task->task }} </strong>
+                <div class="flex items-center justify-between w-full">
+                    <div>
+                        <strong class="font-medium text-gray-900 dark:text-white">
+                            {{ $task->task }} 
+                        </strong>
 
-                    <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
-                        {{ ucwords($task->category) }}
-                    </p>
-                    <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
-                        {{ $task->daysPerWeek }} days per week
-                    </p>
+                        <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
+                            {{ ucwords($task->category) }}
+                        </p>
+                        <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
+                            {{ $task->daysPerWeek }} days per week
+                        </p>
+                        <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
+                            {{ ucwords(implode(', ', json_decode($task->daysOfWeek))) }}
+                        </p>
+                    </div>
+                    <button 
+                        class="text-red-500 dark:text-red-400"
+                        wire:click="delete({{ $task }})"
+                        wire:confirm="Are you sure you want to delete this task?"
+                    >
+                        Delete
+                    </button>
                 </div>
             </label>
         </div>
