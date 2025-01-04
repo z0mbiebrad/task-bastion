@@ -15,9 +15,6 @@
                     <x-nav-link :href="route('task.index')" :active="request()->routeIs('task.index')">
                         {{ __('Task List') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('task.create')" :active="request()->routeIs('task.create')">
-                        {{ __('Task Create') }}
-                    </x-nav-link>
                 </nav>
             </div>
 
@@ -72,9 +69,6 @@
         <nav class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('task.index')" :active="request()->routeIs('task.index')">
                 {{ __('Task List') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('task.create')" :active="request()->routeIs('task.create')">
-                {{ __('Task Create') }}
             </x-responsive-nav-link>
         </nav>
 
