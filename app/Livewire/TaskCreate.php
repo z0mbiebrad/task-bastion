@@ -54,6 +54,8 @@ class TaskCreate extends Component
         $this->clearInput();
 
         session()->flash('message', 'Task created successfully.');
+
+        $this->dispatch('task-created');
     }
     
     public function clearInput()

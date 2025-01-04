@@ -1,13 +1,26 @@
 <div class="w-11/12 sm:w-2/3 md:w-3/5 lg:w-2/5 mx-auto my-16">
-
-    <div class="my-8">
-        <h1 class="text-3xl text-gray-800 dark:text-white">
-            Non-negotiables.
+    <x-slot name="header">
+        <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Non-Negotiables') }}
         </h1>
+    </x-slot>
+
+    <livewire:task-create></livewire:task-create>
+
+    @if ($tasks->isEmpty())
+    <div class="my-8">
         <h3 class="text-lg text-gray-700 dark:text-gray-200">
-            Get them done!
+            You have no tasks yet. Add one above!
         </h3>
     </div>
+    @else
+    <div class="my-8">
+        <h3 class="text-lg text-gray-700 dark:text-gray-200">
+            Get them done! You've got this!
+        </h3>
+    </div>
+    @endif
+
 
     @foreach ($tasks as $task)
         <div class="space-y-2">
