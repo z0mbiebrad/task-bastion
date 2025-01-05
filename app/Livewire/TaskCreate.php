@@ -12,20 +12,44 @@ use function Laravel\Prompts\clear;
 
 class TaskCreate extends Component
 {   
+
+    #[Validate('required|string|min:3|max:255')]
     public $task = '';
+
+    #[Validate('nullable|string|min:1|max:255')]
     public $category = '';
+
+    #[Validate('nullable|string|min:1|max:255')]
     public $customCategory = '';
-    public $daysPerWeek = '';
+
+    #[Validate('nullable|integer|min:0|max:7')]
+    public $daysPerWeek = 0;
+
+    #[Validate('nullable|array')]
     public $daysOfWeek = [];
 
-    protected $rules = [
-        'task' => 'required|string|min:3|max:255',
-        'category' => 'required|string|min:1|max:255',
-        'customCategory' => 'string|min:1|max:255',
-        'daysPerWeek' => 'required|integer|min:1|max:7',
-        'daysOfWeek' => 'nullable|array',
-        'daysOfWeek.*' => 'in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
-    ];
+    public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+    public function updatedDaysPerWeek($value)
+    {
+        if ($value < 0) {
+            $this->daysPerWeek = 1;
+            $this->addError('daysPerWeek', "You can't go below 1 day.");
+        } elseif ($value > 7) {
+            $this->daysPerWeek = 7;
+            $this->addError('daysPerWeek', "You can only select up to 7 days.");
+        }
+    }
+
+    public function increment()
+    {
+        $this->daysPerWeek++;
+    }
+ 
+    public function decrement()
+    {
+        $this->daysPerWeek--;
+    }
 
     public function updatedDaysOfWeek()
     {
@@ -41,13 +65,11 @@ class TaskCreate extends Component
     {
         $finalCategory = $this->category === 'custom' ? $this->customCategory : $this->category;
 
-        $this->validate();
-
         Task::create([
             'user_id' => Auth::id(),
             'task' => $this->task,
             'category' => $finalCategory,
-            'daysPerWeek' => $this->daysPerWeek,
+            'daysPerWeek' => $this->daysPerWeek ?: 0,
             'daysOfWeek' => json_encode($this->daysOfWeek),
         ]);
 
