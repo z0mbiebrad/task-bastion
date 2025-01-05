@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -41,16 +40,6 @@ class TaskCreate extends Component
         }
     }
 
-    public function increment()
-    {
-        $this->daysPerWeek++;
-    }
- 
-    public function decrement()
-    {
-        $this->daysPerWeek--;
-    }
-
     public function updatedDaysOfWeek()
     {
         // Dynamically limit daysOfWeek based on daysPerWeek
@@ -61,8 +50,20 @@ class TaskCreate extends Component
         }
     }
 
+    public function increment()
+    {
+        $this->daysPerWeek++;
+    }
+ 
+    public function decrement()
+    {
+        $this->daysPerWeek--;
+    }
+
     public function createTask()
     {
+        $this->validate();
+
         $finalCategory = $this->category === 'custom' ? $this->customCategory : $this->category;
 
         Task::create([
