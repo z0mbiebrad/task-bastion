@@ -9,14 +9,14 @@
 
     @if ($tasks->isEmpty())
     <div class="my-8">
-        <h3 class="text-lg text-gray-700 dark:text-gray-200">
-            You have no tasks yet. Add one above!
+        <h3 class="text-xl text-gray-700 dark:text-gray-200 border-b-2 border-gray-200 dark:border-gray-700 pb-2 text-center">
+            You have no tasks yet, {{ Auth::user()->name }}. Add one above!
         </h3>
     </div>
     @else
     <div class="my-8">
-        <h3 class="text-lg text-gray-700 dark:text-gray-200">
-            Get them done! You've got this!
+        <h3 class="text-xl text-gray-700 dark:text-gray-200 border-b-2 border-gray-200 dark:border-gray-700 pb-2 text-center">
+            Get them done, {{ Auth::user()->name }}! You've got this!
         </h3>
     </div>
     @endif
@@ -42,9 +42,12 @@
                         <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
                             {{ ucwords($task->category) }}
                         </p>
-                        <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
-                            {{ $task->daysPerWeek }} days per week
-                        </p>
+                        @if ($task->daysPerWeek > 0)
+                            <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
+                                {{ $task->daysPerWeek }} days per week
+                            </p>
+                        @endif
+                       
                         <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
                             {{ ucwords(implode(', ', json_decode($task->daysOfWeek))) }}
                         </p>

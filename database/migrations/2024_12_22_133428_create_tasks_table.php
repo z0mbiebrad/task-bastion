@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('task');
             $table->boolean('completed')
                 ->default(false);
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }
