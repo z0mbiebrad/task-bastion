@@ -9,8 +9,6 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('task-create', TaskCreate::class)
-        ->name('task.create');
         Route::get('task-index', TaskIndex::class)
         ->name('task.index');
 });
