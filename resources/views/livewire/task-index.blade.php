@@ -21,8 +21,20 @@
     </div>
     @endif
 
-
-    @foreach ($tasks as $task)
+    @foreach ($this->groupedTasks as $category => $tasks)
+        <div class="my-8">
+            @if ($category)
+            <h3 class="text-xl text-gray-700 dark:text-gray-200 border-b-2 border-gray-200 dark:border-gray-700 pb-2">
+                {{ ucwords($category) }}
+            </h3>
+            @endif
+            @if (!$category)
+            <h3 class="text-xl text-gray-700 dark:text-gray-200 border-b-2 border-gray-200 dark:border-gray-700 pb-2">
+                Uncategorized
+            </h3>
+            @endif
+        </div>
+        @foreach ($tasks as $task)
         <div class="space-y-2">
             <label for="{{ $task->id }}"
                 class="flex cursor-pointer items-start gap-4 rounded-lg border border-gray-200 p-4 transition hover:bg-gray-50 has-[:checked]:bg-blue-50 dark:border-gray-700 dark:hover:bg-gray-900 dark:has-[:checked]:bg-blue-700/10">
@@ -39,8 +51,6 @@
                             {{ $task->task }} 
                         </strong>
 
-                        <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
-                            {{ ucwords($task->category) }}
                         </p>
                         @if ($task->daysPerWeek > 0)
                             <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
@@ -62,6 +72,8 @@
                 </div>
             </label>
         </div>
+        @endforeach
     @endforeach
+    
 
 </div>
