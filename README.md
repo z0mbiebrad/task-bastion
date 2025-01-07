@@ -5,3 +5,5 @@ I recently have began CrossFit and learning about Stoicism, and both have change
 I wanted to make an app where people could set "non-negotiables" and work towards their goals! 
 
 Its a work in progress, so I can only show a video as of now.
+
+https://www.loom.com/share/564488b58f2b4711baef4c0555a7a9b8
