@@ -26,6 +26,8 @@ class TaskCreate extends Component
 
     #[Validate('nullable|array')]
     public $daysOfWeek = [];
+    
+    public $showFields = false;
 
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
@@ -83,10 +85,12 @@ class TaskCreate extends Component
     
     public function clearInput()
     {
+        $this->showFields = false;
         $this->task = '';
         $this->category = '';
         $this->customCategory = '';
         $this->daysPerWeek = '';
+        $this->daysOfWeek = [];
     }
 
     public function render()
