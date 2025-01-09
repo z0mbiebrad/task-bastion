@@ -1,5 +1,5 @@
 <div 
-    x-data="{ inputValue: '', showFields: false, typing: false, timeout: null }" 
+    x-data="{ inputValue: '', showFields: @entangle('showFields'), typing: false, timeout: null }" 
 >
     <form wire:submit.prevent="createTask" class="shadow-md rounded-lg">
         <div>
@@ -55,7 +55,6 @@
 
             <!-- Submit Button -->
             <x-task-create.submit-button />
-
         </div>
     </form>
 </div>
