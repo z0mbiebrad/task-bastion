@@ -17,5 +17,6 @@ class Task extends Model
         'completed' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'daysOfWeek' => 'array', // Automatically decode JSON to an array
     ];
 }
