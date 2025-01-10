@@ -35,7 +35,7 @@
             @endif
         </div>
         @foreach ($tasks as $task)
-        <div class="space-y-2">
+        <div class="space-y-2" wire:key="{{ $task->id }}">
             <label for="{{ $task->id }}"
                 class="flex cursor-pointer items-start gap-4 rounded-lg border border-gray-200 p-4 transition hover:bg-gray-50 has-[:checked]:bg-blue-50 dark:border-gray-700 dark:hover:bg-gray-900 dark:has-[:checked]:bg-blue-700/10">
                 <div class="flex items-center">
@@ -59,21 +59,30 @@
                         @endif
                        
                         <p class="mt-1 text-pretty text-sm text-gray-700 dark:text-gray-200">
-                            {{ ucwords(implode(', ', json_decode($task->daysOfWeek))) }}
+                            {{ ucwords(implode(', ', $task->daysOfWeek)) }}
                         </p>
                     </div>
-                    <button 
-                        class="text-red-500 dark:text-red-400"
-                        wire:click="delete({{ $task }})"
-                        wire:confirm="Are you sure you want to delete this task?"
-                    >
-                        Delete
-                    </button>
+                    <div>
+                        <button 
+                            class="text-red-500 dark:text-red-400"
+                            wire:click="delete({{ $task }})"
+                            wire:confirm="Are you sure you want to delete this task?"
+                        >
+                            Delete
+                        </button>
+                        <button 
+                            class="text-blue-500 dark:text-blue-400"
+                            wire:click="toggleEdit({{ $task }})"
+                        >
+                            Edit
+                        </button>
+                    </div>
                 </div>
             </label>
+            @if (isset($editing[$task->id]))
+            <livewire:task-edit :task="$task" :key="$task->id"></livewire:task-edit>
+            @endif
         </div>
         @endforeach
     @endforeach
-    
-
 </div>

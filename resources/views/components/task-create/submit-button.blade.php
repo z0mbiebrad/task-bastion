@@ -1,7 +1,7 @@
 <div class="text-right">
     <button
         x-show="showFields"
-        x-on:click="if ($wire.task.trim() === '') {showFields = false}"
+        x-on:click="{showFields = false}"
         wire:click.prevent="createTask"
         :disabled="$wire.task.trim() === ''"
         type="submit"

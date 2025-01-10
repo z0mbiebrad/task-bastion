@@ -11,17 +11,29 @@ use Livewire\Component;
 class TaskIndex extends Component
 {
     public $tasks;
-
-    public function delete(Task $task)
-    {
-        $task->delete();
-        $this->tasks = Auth::user()->tasks;
-    }
+    public $editing = [];
 
     #[Computed]
     public function groupedTasks()
     {
         return $this->tasks->groupBy('category');
+    }
+
+    #[On('task-updated')]
+    public function toggleEdit(Task $task)
+    {
+        if (isset($this->editing[$task->id])) {
+            unset($this->editing[$task->id]);
+        } else {
+            $this->editing[$task->id] = true;
+        }
+    }
+
+    public function delete(Task $task)
+    {
+        $task->delete();
+        $this->tasks = Auth::user()->tasks;
+        $this->groupedTasks;
     }
 
     #[On('task-created')]
