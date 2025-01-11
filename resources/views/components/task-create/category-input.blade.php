@@ -1,6 +1,6 @@
 <div 
-    class="mb-4 w-full"
-    :class="{ 'w-1/3': $wire.category === 'custom' }"
+    class="mb-4"
+    :class="{ 'w-1/3': $wire.category === 'custom', 'w-full': $wire.category !== 'custom' }"
 >
     <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
         Task Category
