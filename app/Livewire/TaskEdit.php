@@ -43,43 +43,58 @@ class TaskEdit extends Component
     {
         $this->validate();
 
+        $finalCategory = $this->category === 'custom' ? $this->customCategory : $this->category;
+
+        if (count($this->daysOfWeek) !== $this->daysPerWeek) {
+            $this->addError('daysOfWeek', "You must select exactly {$this->daysPerWeek} days.");
+            return;
+        }
+
         $this->taskModel->update([
             'task' => $this->task,
-            'category' => $this->category,
+            'category' => $finalCategory,
             'daysOfWeek' => $this->daysOfWeek,
             'daysPerWeek' => $this->daysPerWeek,
         ]);
         
         session()->flash('message', 'Task updated successfully!');
+
+        $this->dispatch('task-updated');
     }
 
     public function increment()
     {
         $this->daysPerWeek++;
+        $this->updatedDaysPerWeek($this->daysPerWeek); 
     }
  
     public function decrement()
     {
         $this->daysPerWeek--;
+        $this->updatedDaysPerWeek($this->daysPerWeek); 
     }
 
     public function updatedDaysPerWeek($value)
     {
-        if ($value < 0) {
-            $this->daysPerWeek = 1;
-            $this->addError('daysPerWeek', "You can't go below 1 day.");
+        if ($value === 0) {
+            $this->daysOfWeek = [];
+        } elseif ($value < 0) {
+            $this->daysPerWeek = 0;
         } elseif ($value > 7) {
             $this->daysPerWeek = 7;
-            $this->addError('daysPerWeek', "You can only select up to 7 days.");
         }
+
+        $this->dispatch('updated-days');
     }
+
+    #[On('updated-days')]
     public function updatedDaysOfWeek()
     {
         // Dynamically limit daysOfWeek based on daysPerWeek
         $maxDays = (int) $this->daysPerWeek;
-        if ($maxDays && count($this->daysOfWeek) > $maxDays) {
+        if (count($this->daysOfWeek) > $maxDays) {
             $this->daysOfWeek = array_slice($this->daysOfWeek, 0, $maxDays);
-            $this->addError('daysOfWeek', "You can only select up to {$maxDays} days.");
+            $this->addError('daysOfWeek', "You can only select up to {$maxDays} daasdasys.");
         }
     }
 

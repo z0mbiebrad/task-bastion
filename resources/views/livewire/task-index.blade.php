@@ -62,7 +62,7 @@
                             {{ ucwords(implode(', ', $task->daysOfWeek)) }}
                         </p>
                     </div>
-                    <div>
+                    <div class="gap-x-4 flex items-center">
                         <button 
                             class="text-red-500 dark:text-red-400"
                             wire:click="delete({{ $task }})"
