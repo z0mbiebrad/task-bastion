@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -31,35 +32,40 @@ class TaskCreate extends Component
 
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    public function updatedDaysPerWeek($value)
-    {
-        if ($value < 0) {
-            $this->daysPerWeek = 1;
-            $this->addError('daysPerWeek', "You can't go below 1 day.");
-        } elseif ($value > 7) {
-            $this->daysPerWeek = 7;
-            $this->addError('daysPerWeek', "You can only select up to 7 days.");
-        }
-    }
-
-    public function updatedDaysOfWeek()
-    {
-        // Dynamically limit daysOfWeek based on daysPerWeek
-        $maxDays = (int) $this->daysPerWeek;
-        if ($maxDays && count($this->daysOfWeek) > $maxDays) {
-            $this->daysOfWeek = array_slice($this->daysOfWeek, 0, $maxDays);
-            $this->addError('daysOfWeek', "You can only select up to {$maxDays} days.");
-        }
-    }
-
     public function increment()
     {
         $this->daysPerWeek++;
+        $this->updatedDaysPerWeek($this->daysPerWeek); 
     }
  
     public function decrement()
     {
         $this->daysPerWeek--;
+        $this->updatedDaysPerWeek($this->daysPerWeek); 
+    }
+
+    public function updatedDaysPerWeek($value)
+    {
+        if ($value === 0) {
+            $this->daysOfWeek = [];
+        } elseif ($value < 0) {
+            $this->daysPerWeek = 0;
+        } elseif ($value > 7) {
+            $this->daysPerWeek = 7;
+        }
+
+        $this->dispatch('updated-days');
+    }
+
+    #[On('updated-days')]
+    public function updatedDaysOfWeek()
+    {
+        // Dynamically limit daysOfWeek based on daysPerWeek
+        $maxDays = (int) $this->daysPerWeek;
+        if (count($this->daysOfWeek) > $maxDays) {
+            $this->daysOfWeek = array_slice($this->daysOfWeek, 0, $maxDays);
+            $this->addError('daysOfWeek', "You can only select up to {$maxDays} daasdasys.");
+        }
     }
 
     public function createTask()
@@ -73,7 +79,7 @@ class TaskCreate extends Component
             'task' => $this->task,
             'category' => $finalCategory,
             'daysPerWeek' => $this->daysPerWeek ?: 0,
-            'daysOfWeek' => json_encode($this->daysOfWeek),
+            'daysOfWeek' => $this->daysOfWeek,
         ]);
 
         $this->clearInput();
