@@ -36,7 +36,7 @@ class TaskIndex extends Component
         $this->groupedTasks;
     }
 
-    #[On('task-created')]
+    #[On('task-created', 'task-updated')]
     public function mount()
     {
         $this->tasks = Auth::user()->tasks;
