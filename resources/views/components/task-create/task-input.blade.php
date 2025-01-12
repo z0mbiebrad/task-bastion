@@ -12,7 +12,7 @@
         </span>
     </label>
     <input 
-        wire:model.blur='task' 
+        wire:model.blur='form.task' 
         x-on:input="
             typing = true; 
             showFields = true;
@@ -22,7 +22,7 @@
         autocomplete="off"
         type="text" 
         id="task"
-        class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 placeholder-gray-100"
+        class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 border dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 placeholder-gray-100 @error('form.task') required:border-red-500 @enderror"
         placeholder="Add a non-negotiable..." 
         required 
     />

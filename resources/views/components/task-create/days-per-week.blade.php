@@ -10,15 +10,15 @@
             wire:click="decrement"
             type="button"
             class="rounded-l-lg size-10 leading-10 text-gray-600 bg-gray-600 transition hover:opacity-75 dark:text-gray-300"
-            :disabled="$wire.daysPerWeek <= 0"
+            :disabled="$wire.form.daysPerWeek <= 0"
         >
             &minus;
         </button>
     
         <input
-            wire:model.lazy="daysPerWeek" 
+            wire:model.lazy="form.daysPerWeek" 
             type="number"
-            id="Quantity"
+            id="quantity"
             class="h-10  w-16 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm dark:bg-gray-700 dark:text-white [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
         />
     
@@ -26,7 +26,7 @@
             wire:click="increment"
             type="button"
             class="rounded-r-lg size-10 leading-10 text-gray-600 bg-gray-600 transition hover:opacity-75 dark:text-gray-300"
-            :disabled="$wire.daysPerWeek >= 7"
+            :disabled="$wire.form.daysPerWeek >= 7"
         >
             &plus;
         </button>

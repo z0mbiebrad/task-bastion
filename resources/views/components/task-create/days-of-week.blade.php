@@ -1,6 +1,6 @@
 <div
     class="mb-4" 
-    x-show="$wire.daysPerWeek > 0"
+    x-show="$wire.form.daysPerWeek > 0"
     x-transition:enter.duration.500ms
     x-transition:leave.duration.0ms
 >

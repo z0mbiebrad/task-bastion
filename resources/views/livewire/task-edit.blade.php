@@ -13,7 +13,7 @@
                     Non-Negotiable
                 </label>
                 <input 
-                    wire:model.blur='task' 
+                    wire:model.blur='form.task' 
                     autocomplete="off"
                     type="text" 
                     id="task"
@@ -28,13 +28,13 @@
             <div class="flex justify-between items-center gap-x-4">
                 <div 
                     class="mb-4"
-                    :class="{ 'w-1/3': $wire.category === 'custom', 'w-full': $wire.category !== 'custom' }"
+                    :class="{ 'w-1/3': $wire.form.category === 'custom', 'w-full': $wire.form.category !== 'custom' }"
                 >
                     <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Task Category
                     </label>
                     <select
-                        wire:model="category" 
+                        wire:model="form.category" 
                         id="category"
                         class="mt-1 block w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     >
@@ -54,18 +54,18 @@
                 <x-task-create.error-message type="category"/>
                 
                 {{-- Custom Category --}}
-                <template x-if="$wire.category === 'custom'" class="w-full">
+                <template x-if="$wire.form.category === 'custom'" class="w-full">
                     <div class="mb-4">
                         <label 
-                            for="customCategory" 
+                            for="category" 
                             class="block text-sm font-medium text-gray-700 dark:text-gray-300"
                         >
                             Custom Category
                         </label>
                         <input 
-                            wire:model="customCategory" 
+                            wire:model="category" 
                             type="text" 
-                            id="customCategory"
+                            id="category"
                             class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter category..." 
                             required 
@@ -85,13 +85,13 @@
                             wire:click="decrement"
                             type="button"
                             class="rounded-l-lg size-10 leading-10 text-gray-600 bg-gray-600 transition hover:opacity-75 dark:text-gray-300"
-                            :disabled="$wire.daysPerWeek <= 0"
+                            :disabled="$wire.form.daysPerWeek <= 0"
                         >
                             &minus;
                         </button>
                     
                         <input
-                            wire:model.lazy="daysPerWeek" 
+                            wire:model.lazy="form.daysPerWeek" 
                             type="number"
                             id="Quantity"
                             class="h-10 w-16 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm dark:bg-gray-700 dark:text-white [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
@@ -101,7 +101,7 @@
                             wire:click="increment"
                             type="button"
                             class="rounded-r-lg size-10 leading-10 text-gray-600 bg-gray-600 transition hover:opacity-75 dark:text-gray-300"
-                            :disabled="$wire.daysPerWeek >= 7"
+                            :disabled="$wire.form.daysPerWeek >= 7"
                         >
                             &plus;
                         </button>
@@ -113,7 +113,7 @@
 
             <div
                 class="mb-4" 
-                x-show="$wire.daysPerWeek > 0"
+                x-show="$wire.form.daysPerWeek > 0"
                 x-transition:enter.duration.500ms
                 x-transition:leave.duration.0ms
             >
@@ -122,12 +122,12 @@
                 </div>
                 <label for="daysOfWeek" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Days Of Week</label>
                 <div class="mt-2 flex items-center justify-between">
-                    @foreach ($days as $day)
-                        <x-task-create.days-checkbox :day="$day" :daysOfWeek="$daysOfWeek"/>
+                    @foreach ($form->days as $day)
+                        <x-task-create.days-checkbox :day="$day" :daysOfWeek="$form->daysOfWeek"/>
                     @endforeach
                 </div>
                 <div class="text-blue-400 my-4">
-                    {{ count($daysOfWeek) . ' out of ' . $daysPerWeek . ' days selected.' }}
+                    {{ count($form->daysOfWeek) . ' out of ' . $form->daysPerWeek . ' days selected.' }}
                 </div>
             </div>
 
@@ -135,7 +135,7 @@
 
             <div class="text-right">
                 <button
-                    :disabled="$wire.task.trim() === ''"
+                    :disabled="$wire.form.task.trim() === ''"
                     type="submit"
                     class="disabled:bg-blue-200 disabled:hover:bg-blue-200 px-4 py-2 my-4 bg-blue-600 dark:bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 dark:hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
