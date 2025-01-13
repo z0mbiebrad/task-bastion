@@ -1,4 +1,4 @@
-<template x-if="$wire.category === 'custom'" class="w-full">
+<template x-if="$wire.form.category === 'custom'" class="w-full">
     <div class="mb-4">
         <label 
             for="customCategory" 
@@ -7,7 +7,7 @@
             Custom Category
         </label>
         <input 
-            wire:model="customCategory" 
+            wire:model="form.customCategory" 
             type="text" 
             id="customCategory"
             class="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"

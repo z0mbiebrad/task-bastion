@@ -1,5 +1,5 @@
 <div 
-    x-data="{ inputValue: '', showFields: @entangle('showFields'), typing: false, timeout: null }" 
+    x-data="{ inputValue: '', showFields: @entangle('form.showFields'), typing: false, timeout: null }" 
 >
     <form wire:submit.prevent="createTask" class="shadow-md rounded-lg">
         <div>
@@ -10,7 +10,7 @@
             <x-task-create.task-input />
         
             {{-- Task Input Error --}}
-            <x-task-create.error-message type="task"/>
+            <x-task-create.error-message type="form.task"/>
             
             {{-- Optional Inputs --}}
             <x-task-create.optional-inputs>
@@ -21,7 +21,7 @@
                     <x-task-create.category-input />
                     
                     {{-- Category Input Error --}}  
-                    <x-task-create.error-message type="category"/>
+                    <x-task-create.error-message type="form.category"/>
                     
                     {{-- Custom Category --}}
                     <x-task-create.custom-category />
@@ -34,20 +34,19 @@
                     <x-task-create.days-per-week />
                     
                     {{-- Days Per Week Input Error --}}
-                    <x-task-create.error-message type="daysPerWeek"/>
+                    <x-task-create.error-message type="form.daysPerWeek"/>
 
                 </x-slot>
 
                 <x-slot:daysOfWeek>
-                
                     {{-- Days of week Input --}}
                     <x-task-create.days-of-week 
-                        :days="$days" 
-                        :daysOfWeek="$daysOfWeek" 
-                        :daysPerWeek="$daysPerWeek"
+                        :days="$form->days" 
+                        :daysOfWeek="$form->daysOfWeek" 
+                        :daysPerWeek="$form->daysPerWeek"
                     />
 
-                    <x-task-create.error-message type="daysOfWeek"/>
+                    <x-task-create.error-message type="form.daysOfWeek"/>
 
                 </x-slot>
 
