@@ -1,5 +1,7 @@
-<div>
-    <form wire:submit.prevent="save" class="shadow-md rounded-lg">
+<div 
+    x-data="{ showFields: @entangle('form.showFields') }" 
+>
+    <form wire:submit.prevent="save" class="shadow-md rounded-lg" x-show="showFields">
         <div>
             {{-- Session Messages --}}
             <x-task-create.session-message />

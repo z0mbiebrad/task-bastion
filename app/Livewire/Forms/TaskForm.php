@@ -60,6 +60,7 @@ class TaskForm extends Form
 
     public function setTask(Task $task)
     {
+        $this->showFields = true;
         $this->taskModel = $task;
         $this->task = $task->task;
         $this->category = $task->category;
@@ -100,6 +101,7 @@ class TaskForm extends Form
             'daysPerWeek' => $this->daysPerWeek,
         ]);
         
+        $this->showFields = false;
         session()->flash('message', 'Task updated successfully!');
     }
 }
