@@ -65,14 +65,14 @@
                     <div class="gap-x-4 flex items-center">
                         <button 
                             class="text-red-500 dark:text-red-400"
-                            wire:click="delete({{ $task }})"
+                            wire:click="delete({{ $task->id }})"
                             wire:confirm="Are you sure you want to delete this task?"
                         >
                             Delete
                         </button>
                         <button 
                             class="text-blue-500 dark:text-blue-400"
-                            wire:click="toggleEdit({{ $task }})"
+                            wire:click="toggleEdit({{ $task->id }})"
                         >
                             Edit
                         </button>
