@@ -89,11 +89,6 @@ class TaskForm extends Form
     {
         $this->validate();
 
-        if (count($this->daysOfWeek) !== $this->daysPerWeek) {
-            $this->addError('daysOfWeek', "You must select exactly {$this->daysPerWeek} days.");
-            return;
-        }
-
         $this->taskModel->update([
             'task' => $this->task,
             'category' => $this->category,
