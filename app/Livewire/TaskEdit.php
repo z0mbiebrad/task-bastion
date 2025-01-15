@@ -13,13 +13,14 @@ use Livewire\Component;
 class TaskEdit extends Component
 {
     public TaskForm $form;
+    public $formContext = 'edit';
 
     public function mount(Task $task)
     {
        $this->form->setTask($task);
     }
 
-    public function save()
+    public function editTask()
     {
         $this->form->update();
 
