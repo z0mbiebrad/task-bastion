@@ -44,6 +44,7 @@
                         :days="$form->days" 
                         :daysOfWeek="$form->daysOfWeek" 
                         :daysPerWeek="$form->daysPerWeek"
+                        :formContext="$formContext"
                     />
 
                     <x-task-create.error-message type="form.daysOfWeek"/>
