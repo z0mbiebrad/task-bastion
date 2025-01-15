@@ -1,6 +1,6 @@
 <div
     class="mb-4" 
-    x-show="$wire.form.daysPerWeek > 0"
+    x-show="$wire.form.daysPerWeek"
     x-transition:enter.duration.500ms
     x-transition:leave.duration.0ms
 >
@@ -11,7 +11,7 @@
     
     <div class="mt-2 flex items-center justify-between">
         @foreach ($days as $day)
-            <x-task-create.days-checkbox :day="$day" />
+            <x-task-create.days-checkbox :day="$day" :formContext="$formContext" />
         @endforeach
     </div>
     <div class="text-blue-400 my-4">
