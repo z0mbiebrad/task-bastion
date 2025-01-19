@@ -22,32 +22,9 @@ class TaskEdit extends Component
 
     public function editTask()
     {
-        $this->form->update();
+        $this->form->save();
 
         $this->dispatch('task-updated');
-    }
-
-    public function increment()
-    {
-        $this->form->increment();
-    }
- 
-    public function decrement()
-    {
-        $this->form->decrement();
-    }
-
-    public function updatedDaysPerWeek($value)
-    {
-        $this->form->updatedDaysPerWeek($value);
-
-        $this->dispatch('updated-days');
-    }
-
-    #[On('updated-days')]
-    public function updatedDaysOfWeek()
-    {
-        $this->form->updatedDaysOfWeek();
     }
 
     public function render()
