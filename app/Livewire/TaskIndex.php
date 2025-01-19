@@ -16,7 +16,10 @@ class TaskIndex extends Component
     #[Computed]
     public function groupedTasks()
     {
-        return $this->tasks->groupBy('category');
+        return $this->tasks->groupBy(function ($task) {
+            // Use 'custom_category' if it exists, otherwise fall back to 'category'
+            return $task->custom_category ?: $task->category;
+        });
     }
 
     #[On('task-updated')]
