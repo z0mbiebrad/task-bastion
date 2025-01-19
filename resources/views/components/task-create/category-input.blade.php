@@ -1,6 +1,5 @@
 <div 
-    class="mb-4"
-    :class="{ 'w-1/3': $wire.form.category === 'custom', 'w-full': $wire.form.category !== 'custom' }"
+    class="mb-4 w-full"
 >
     <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
         Task Category
