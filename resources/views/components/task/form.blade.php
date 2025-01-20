@@ -7,7 +7,7 @@
             <x-task.session-message />
 
             {{-- Task Input --}}
-            <x-task.task-input />
+            <x-task.input :formContext="$formContext"/>
         
             {{-- Task Input Error --}}
             <x-task.error-message type="form.task"/>

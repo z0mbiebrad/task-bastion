@@ -24,7 +24,7 @@
     <label for="daysOfWeek" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Days Of Week</label>
     <div class="mt-2 flex items-center justify-between">
         @foreach ($days as $day)
-            <x-task-create.days-checkbox :day="$day" :formContext="$formContext" />
+            <x-task.days-checkbox :day="$day" :formContext="$formContext" />
         @endforeach
     </div>
 </div>
