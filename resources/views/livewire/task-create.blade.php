@@ -11,47 +11,37 @@
         
             {{-- Task Input Error --}}
             <x-task-create.error-message type="form.task"/>
-            
-            {{-- Optional Inputs --}}
-            <x-task-create.optional-inputs>
 
-                <x-slot:categories>
-
+            <div 
+                x-show="showFields"
+            >
+                <div class="text-blue-400 text-center my-4">
+                    (Optional)
+                </div>
                     {{-- Category Input --}}
-                    <x-task-create.category-input />
-                    
-                    {{-- Category Input Error --}}  
-                    <x-task-create.error-message type="form.category"/>
-                    
-                    {{-- Custom Category --}}
-                    <x-task-create.custom-category />
-                    
-                </x-slot>
+                <x-task-create.category-input />
+                
+                {{-- Category Input Error --}}  
+                <x-task-create.error-message type="form.category"/>
+                
+                {{-- Custom Category --}}
+                <x-task-create.custom-category />
 
-                <x-slot:daysPerWeek>
-                    
-                    {{-- Days Per Week Input --}}
-                    <x-task-create.days-per-week />
-                    
-                    {{-- Days Per Week Input Error --}}
-                    <x-task-create.error-message type="form.daysPerWeek"/>
+                {{-- Custom Category Error --}}
+                <x-task-create.error-message type="form.customCategory"/>
 
-                </x-slot>
+                
+                {{-- Days a week Input --}}
+                <x-task-create.days-a-week 
+                    :days="$form->days" 
+                    :taskDays="$form->taskDays"
+                    :formContext="$formContext"
+                />
 
-                <x-slot:daysOfWeek>
-                    {{-- Days of week Input --}}
-                    <x-task-create.days-of-week 
-                        :days="$form->days" 
-                        :daysOfWeek="$form->daysOfWeek" 
-                        :daysPerWeek="$form->daysPerWeek"
-                        :formContext="$formContext"
-                    />
+                <x-task-create.error-message type="form.taskDays"/>
 
-                    <x-task-create.error-message type="form.daysOfWeek"/>
-
-                </x-slot>
-
-            </x-task-create.optional-inputs>
+                <x-task-create.error-message type="form.customTaskDays"/>
+            </div>
 
             <!-- Submit Button -->
             <x-task-create.submit-button />
