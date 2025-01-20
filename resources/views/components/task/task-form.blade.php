@@ -1,7 +1,7 @@
 <div 
     x-data="{ inputValue: '', showFields: @entangle('form.showFields'), typing: false, timeout: null }" 
 >
-    <form wire:submit.prevent="editTask" class="shadow-md rounded-lg">
+    <form wire:submit.prevent="{{ $submitAction }}" class="shadow-md rounded-lg">
         <div>
             {{-- Session Messages --}}
             <x-task.session-message />
