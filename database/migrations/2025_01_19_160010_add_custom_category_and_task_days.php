@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->string('task_days')
+            $table->string('custom_category')
+                ->nullable();
+            $table->json('custom_task_days')
                 ->nullable();
         });
     }
@@ -23,7 +25,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn(['task_days']);
+            $table->dropColumn(['custom_category', 'custom_task_days']);
         });
     }
 };
+    

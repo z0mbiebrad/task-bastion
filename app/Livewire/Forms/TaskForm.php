@@ -9,94 +9,65 @@ use Livewire\Form;
 
 class TaskForm extends Form
 {
-    #[Validate('required|string|min:3|max:255')]
+    #[Validate('required|string|min:1|max:255')]
     public $task = '';
 
-    #[Validate('nullable|string|min:1|max:255')]
+    #[Validate('nullable|string')]
     public $category = '';
 
-    #[Validate('nullable|integer|min:0|max:7')]
-    public $daysPerWeek = 0;
+    #[Validate('nullable|string|max:255')]
+    public $customCategory = '';
 
-    #[Validate('nullable|array')]
-    public $daysOfWeek = [];
+    #[Validate('nullable|string')]
+    public $taskDays = '';
+
+    #[Validate('nullable|array|max:7')]
+    public $customTaskDays = [];
     
     public $showFields = false;
     public $taskModel;
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    public function increment()
-    {
-        $this->daysPerWeek++;
-        $this->updatedDaysPerWeek($this->daysPerWeek); 
-    }
- 
-    public function decrement()
-    {
-        $this->daysPerWeek--;
-        $this->updatedDaysPerWeek($this->daysPerWeek); 
-    }
-
-    public function updatedDaysPerWeek($value)
-    {
-        if ($value === 0) {
-            $this->daysOfWeek = [];
-        } elseif ($value < 0) {
-            $this->daysPerWeek = 0;
-        } elseif ($value > 7) {
-            $this->daysPerWeek = 7;
-        }
-    }
-
-    public function updatedDaysOfWeek()
-    {
-        // Dynamically limit daysOfWeek based on daysPerWeek
-        $maxDays = (int) $this->daysPerWeek;
-        if (count($this->daysOfWeek) > $maxDays) {
-            $this->daysOfWeek = array_slice($this->daysOfWeek, 0, $maxDays);
-            $this->addError('daysOfWeek', "You can only select up to {$maxDays} daasdasys.");
-        }
-    }
-
     public function setTask(Task $task)
     {
         $this->showFields = true;
-        $this->taskModel = $task;
-        $this->task = $task->task;
-        $this->category = $task->category;
-        $this->daysOfWeek = $task->daysOfWeek;
-        $this->daysPerWeek = $task->daysPerWeek;
+        $this->fill([
+            'taskModel' => $task,
+            'task' => $task->task,
+            'category' => $task->category,
+            'customCategory' => $task->custom_category,
+            'taskDays' => $task->task_days,
+            'customTaskDays' => $task->custom_task_days,
+        ]);
     }
 
-    public function create()
+    public function save()
     {
         $this->validate();
 
-        Task::create([
+        $data = [
             'user_id' => Auth::id(),
             'task' => $this->task,
             'category' => $this->category,
-            'daysPerWeek' => $this->daysPerWeek,
-            'daysOfWeek' => $this->daysOfWeek,
-        ]);
+            'custom_category' => $this->customCategory,
+            'task_days' => $this->taskDays,
+            'custom_task_days' => $this->customTaskDays,
+        ];
+
+        $this->taskModel 
+            ? $this->taskModel->update($data) 
+            : Task::create($data);
 
         $this->showFields = false;
 
-        session()->flash('message', 'Task created successfully.');
-    }
-
-    public function update()
-    {
-        $this->validate();
-
-        $this->taskModel->update([
-            'task' => $this->task,
-            'category' => $this->category,
-            'daysOfWeek' => $this->daysOfWeek,
-            'daysPerWeek' => $this->daysPerWeek,
+        $this->reset([
+            'task',
+            'category',
+            'customCategory',
+            'taskDays',
+            'customTaskDays',
         ]);
-        
-        $this->showFields = false;
-        session()->flash('message', 'Task updated successfully!');
+
+        session()->flash('message', $this->taskModel ? 'Task updated successfully!' : 'Task created successfully.');
     }
 }
