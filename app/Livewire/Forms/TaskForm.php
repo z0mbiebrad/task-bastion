@@ -63,7 +63,9 @@ class TaskForm extends Form
         $this->reset([
             'task',
             'category',
+            'customCategory',
             'taskDays',
+            'customTaskDays',
         ]);
 
         session()->flash('message', $this->taskModel ? 'Task updated successfully!' : 'Task created successfully.');
