@@ -14,6 +14,8 @@ class TaskEdit extends Component
 {
     public TaskForm $form;
     public $formContext = 'edit';
+    public $events = ['task-updated', 'update-message'];
+    
 
     public function updatedFormTaskDays($value)
     {
@@ -31,7 +33,9 @@ class TaskEdit extends Component
     public function editTask()
     {
         $this->form->save();
-        $this->dispatch('task-updated', $this->form->taskModel);
+        foreach ($this->events as $event) {
+            $this->dispatch($event, $this->form->taskModel->id);
+        }
     }
 
     public function render()
