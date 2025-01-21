@@ -18,7 +18,7 @@
                 <div class="text-blue-400 text-center my-4">
                     (Optional)
                 </div>
-                    {{-- Category Input --}}
+                {{-- Category Input --}}
                 <x-task.category-input />
                 
                 {{-- Category Input Error --}}  
