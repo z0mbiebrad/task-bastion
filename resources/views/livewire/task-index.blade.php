@@ -5,6 +5,8 @@
         </h1>
     </x-slot>
 
+    <x-task.session-message />
+
     <livewire:task-create></livewire:task-create>
 
     @if ($tasks->isEmpty())
@@ -94,6 +96,9 @@
             </label>
             @if (isset($editing[$task->id]))
             <livewire:task-edit :task="$task" :key="$task->id"></livewire:task-edit>
+            @endif
+            @if ($task->id === $updated)
+                <x-task.update-message :updated="$updated"/>
             @endif
         </div>
         @endforeach
