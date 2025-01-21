@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\TaskForm;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -12,6 +13,7 @@ class TaskIndex extends Component
 {
     public $tasks;
     public $editing = [];
+    public $updated = null;
 
     #[Computed]
     public function groupedTasks()
@@ -23,12 +25,12 @@ class TaskIndex extends Component
     }
 
     #[On('task-updated')]
-    public function toggleEdit(Task $task)
+    public function toggleEdit($task)
     {
-        if (isset($this->editing[$task->id])) {
-            unset($this->editing[$task->id]);
+        if (isset($this->editing[$task])) {
+            unset($this->editing[$task]);
         } else {
-            $this->editing[$task->id] = true;
+            $this->editing[$task] = true;
         }
     }
 
@@ -37,6 +39,13 @@ class TaskIndex extends Component
         $task->delete();
         $this->tasks = Auth::user()->tasks;
         $this->groupedTasks;
+    }
+
+    #[On('update-message')]
+    public function editMessage($task)
+    {
+        $this->updated = $task;
+        session()->flash("update-message", 'Task updated successfully!');
     }
 
     #[On('task-created', 'task-updated')]
