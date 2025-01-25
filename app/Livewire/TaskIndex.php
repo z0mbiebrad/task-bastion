@@ -14,6 +14,9 @@ class TaskIndex extends Component
     public $tasks;
     public $editing = [];
     public $updated = null;
+    public $completedList = [];
+    public $completedMessage = '';
+    public $toggleEditButton = false;
 
     #[Computed]
     public function groupedTasks()
@@ -24,6 +27,12 @@ class TaskIndex extends Component
         });
     }
 
+    #[On('toggle-Edi')]
+    public function toggleEdi()
+    {
+        $this->toggleEditButton = !$this->toggleEditButton;
+    }
+
     #[On('task-updated')]
     public function toggleEdit($task)
     {
@@ -32,6 +41,8 @@ class TaskIndex extends Component
         } else {
             $this->editing[$task] = true;
         }
+        
+        $this->updated = $task;
     }
 
     public function delete(Task $task)
@@ -42,17 +53,28 @@ class TaskIndex extends Component
     }
 
     #[On('update-message')]
-    public function editMessage($task)
+    public function editMessage()
     {
-        $this->updated = $task;
         session()->flash("update-message", 'Task updated successfully!');
     }
 
-    #[On('task-created', 'task-updated')]
+    #[On(['task-created', 'task-completed'])]
     public function mount()
     {
         $this->tasks = Auth::user()->tasks;
         $this->groupedTasks;
+    }
+
+    public function completeTask(Task $task)
+    {   
+        $this->updated = $task->id;
+
+        $task->update(['completed' => !$task->completed]);
+        $this->dispatch('task-completed');
+        if ($task->completed)
+        {
+            $this->completedMessage = ucwords($task->task) . ' completed! Way to go!';
+        }
     }
 
     public function render()
