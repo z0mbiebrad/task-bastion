@@ -1,7 +1,20 @@
 <div 
-    x-data="{ inputValue: '', showFields: @entangle('form.showFields'), typing: false, timeout: null }" 
+    x-data="{ 
+            inputValue: @entangle('form.task'),
+            showFields: @entangle('form.showFields'), 
+            typing: false, 
+            timeout: null 
+        }" 
+    x-effect="
+        if (inputValue === '') {
+            showFields = false;
+        }
+    "
 >
-    <form wire:submit.prevent="{{ $submitAction }}" class="shadow-md rounded-lg">
+    <form 
+        wire:submit.prevent="{{ $submitAction }}" 
+        class="shadow-md rounded-lg"
+    >
         <div>
             {{-- Session Messages --}}
             <x-task.session-message />
@@ -42,9 +55,6 @@
 
                 <x-task.error-message type="form.customTaskDays"/>
             </div>
-
-            <!-- Submit Button -->
-            <x-task.submit-button />
         </div>
     </form>
 </div>
