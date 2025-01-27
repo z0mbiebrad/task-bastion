@@ -14,7 +14,6 @@ class TaskIndex extends Component
     public $tasks;
     public $editing = [];
     public $updated = null;
-    public $completedList = [];
     public $completedMessage = '';
     public $toggleEditButton = false;
 
@@ -41,7 +40,7 @@ class TaskIndex extends Component
         } else {
             $this->editing[$task] = true;
         }
-        
+
         $this->updated = $task;
     }
 
@@ -49,7 +48,8 @@ class TaskIndex extends Component
     {
         $task->delete();
         $this->tasks = Auth::user()->tasks;
-        $this->groupedTasks;
+        $this->groupedTasks();
+        $this->dispatch('task-deleted');
     }
 
     #[On('update-message')]
@@ -62,11 +62,11 @@ class TaskIndex extends Component
     public function mount()
     {
         $this->tasks = Auth::user()->tasks;
-        $this->groupedTasks;
+        $this->groupedTasks();
     }
 
     public function completeTask(Task $task)
-    {   
+    {
         $this->updated = $task->id;
 
         $task->update(['completed' => !$task->completed]);
