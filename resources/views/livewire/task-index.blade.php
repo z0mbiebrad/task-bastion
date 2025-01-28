@@ -3,6 +3,7 @@
         <livewire:task-create></livewire:task-create>
     </x-slot>
 
+
     <div class="h-20 flex items-center w-full text-center">
         @if ($completedMessage)
             <div
