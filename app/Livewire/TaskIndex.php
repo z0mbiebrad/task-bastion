@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Livewire\Forms\TaskForm;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -16,6 +15,7 @@ class TaskIndex extends Component
     public $updated = null;
     public $completedMessage = '';
     public $toggleEditButton = false;
+
 
     #[Computed]
     public function groupedTasks()
@@ -61,10 +61,29 @@ class TaskIndex extends Component
     #[On(['task-created', 'task-completed'])]
     public function mount()
     {
-        $this->tasks = Auth::user()->tasks;
+        $this->taskDaysDisplay();
         $this->groupedTasks();
     }
+    #[On('test')]
+    public function taskDaysDisplay()
+    {
+        $tasks = Auth::user()->tasks;
+        $currentDay = strtolower(now()->format('l'));
+        $isWeekend = in_array($currentDay, ['Saturday', 'Sunday']);
+        $isWeekday = !$isWeekend;
 
+        $this->tasks = $tasks->filter(function ($task) use ($currentDay, $isWeekday, $isWeekend) {
+            return match ($task->task_days) {
+                'daily' => true,
+                'weekdays' => $isWeekday,
+                'weekends' => $isWeekend,
+                'custom' => !empty($task->custom_task_days) && in_array($currentDay, $task->custom_task_days),
+                default => empty($task->task_days), // Show tasks with no 'task_days' set
+            };
+        });
+        session()->put('today_tasks', $this->tasks->toArray()); // Store in the session
+        $this->dispatch('today-tasks', $this->tasks); // Dispatch for other components
+    }
     public function completeTask(Task $task)
     {
         $this->updated = $task->id;

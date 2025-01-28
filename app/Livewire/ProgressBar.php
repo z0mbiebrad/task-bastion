@@ -11,7 +11,7 @@ use App\Models\Task;
 
 class ProgressBar extends Component
 {
-    public Task $task;
+    public $tasks = [];
     public int $progress = 0;
 
     #[Computed]
@@ -26,17 +26,23 @@ class ProgressBar extends Component
         return $this->tasks()->where('completed', true);
     }
 
+    #[On('today-tasks')]
+    public function setTasks($tasks)
+    {
+        $this->tasks = Task::hydrate($tasks);
+        $completed = $this->completedTasks();
+        if($this->tasks->count() === 0){
+            $this->progress = 0;
+        } else {
+            $this->progress = $completed->count() / $this->tasks->count() * 100;
+        }
+    }
+
     #[On(['task-completed', 'task-created', 'task-deleted'])]
     public function mount(): void
     {
-        $tasks = $this->tasks();
-        $completed = $this->completedTasks();
-
-        if($tasks->count() === 0){
-            $this->progress = 0;
-        } else {
-            $this->progress = $completed->count() / $tasks->count() * 100;
-        }
+        $cachedTasks = session()->get('today_tasks', []); // Fetch tasks from session
+        $this->setTasks($cachedTasks); // Call setTasks to handle initialization
     }
 
 }

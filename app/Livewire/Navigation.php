@@ -2,12 +2,15 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Navigation extends Component
 {
-    public function render()
+    public $today = '';
+
+    public function mount()
     {
-        return view('livewire.navigation');
+        $this->today = Carbon::now()->format('l');
     }
 }
