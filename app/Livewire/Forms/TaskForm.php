@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Session;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -23,7 +24,7 @@ class TaskForm extends Form
 
     #[Validate('nullable|array|max:7')]
     public $customTaskDays = [];
-    
+
     public $showFields = false;
     public $taskModel;
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -54,8 +55,8 @@ class TaskForm extends Form
             'custom_task_days' => $this->customTaskDays,
         ];
 
-        $this->taskModel 
-            ? $this->taskModel->update($data) 
+        $this->taskModel
+            ? $this->taskModel->update($data)
             : Task::create($data);
 
         $this->showFields = false;
@@ -67,7 +68,5 @@ class TaskForm extends Form
             'taskDays',
             'customTaskDays',
         ]);
-
-        session()->flash('message', $this->taskModel ? 'Task updated successfully!' : 'Task created successfully.');
     }
 }

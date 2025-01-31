@@ -1,31 +1,28 @@
-<div 
-    x-data="{ 
+<div
+    x-data="{
             inputValue: @entangle('form.task'),
-            showFields: @entangle('form.showFields'), 
-            typing: false, 
-            timeout: null 
-        }" 
+            showFields: @entangle('form.showFields'),
+            typing: false,
+            timeout: null
+        }"
     x-effect="
         if (inputValue === '') {
             showFields = false;
         }
     "
 >
-    <form 
-        wire:submit.prevent="{{ $submitAction }}" 
+    <form
+        wire:submit.prevent="{{ $submitAction }}"
         class="shadow-md rounded-lg"
     >
         <div>
-            {{-- Session Messages --}}
-            <x-task.session-message />
-
             {{-- Task Input --}}
             <x-task.input :formContext="$formContext"/>
-        
+
             {{-- Task Input Error --}}
             <x-task.error-message type="form.task"/>
 
-            <div 
+            <div
                 x-show="showFields"
             >
                 <div class="text-blue-400 text-center my-4">
@@ -33,20 +30,20 @@
                 </div>
                 {{-- Category Input --}}
                 <x-task.category-input />
-                
-                {{-- Category Input Error --}}  
+
+                {{-- Category Input Error --}}
                 <x-task.error-message type="form.category"/>
-                
+
                 {{-- Custom Category --}}
                 <x-task.custom-category />
 
                 {{-- Custom Category Error --}}
                 <x-task.error-message type="form.customCategory"/>
 
-                
+
                 {{-- Days a week Input --}}
-                <x-task.days-a-week 
-                    :days="$form->days" 
+                <x-task.days-a-week
+                    :days="$form->days"
                     :taskDays="$form->taskDays"
                     :formContext="$formContext"
                 />

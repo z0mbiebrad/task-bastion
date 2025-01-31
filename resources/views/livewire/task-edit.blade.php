@@ -1,5 +1,5 @@
-<x-task.form 
-:submitAction="'editTask'"
+<x-task.form
+:submitAction="'update'"
 :form="$form"
 :formContext="$formContext"
 >
