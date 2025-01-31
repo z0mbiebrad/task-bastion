@@ -18,11 +18,11 @@
     <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
         <!-- Navigation -->
         <livewire:navigation></livewire:navigation>
-        
+
         <!-- Page Heading -->
         @isset($header)
             <header class="bg-white dark:bg-gray-800 shadow">
-                <div class="max-w-3xl mx-auto py-6 px-4">
+                <div class="max-w-3xl mx-auto py-6 px-4 mb-14">
                     {{ $header }}
                 </div>
             </header>
@@ -32,7 +32,7 @@
         <main class="min-h-screen">
             {{ $slot }}
         </main>
-        
+
         <!-- Footer -->
         @include('layouts.footer')
     </body>
