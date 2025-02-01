@@ -4,15 +4,14 @@ namespace App\Traits;
 
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\On;
 
 trait HandlesTasks
 {
-    #[On(['task-created', 'task-deleted', 'task-completed'])]
     public function loadTasks()
     {
-        $this->tasks = Auth::user()->tasks;
+        $this->tasks = auth()->user()->tasks;
+        $this->dispatch('progress-bar', $this->tasks);
     }
 
     public function delete(Task $task)
