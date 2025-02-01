@@ -4,7 +4,11 @@ class="flex items-center justify-end mb-1 mt-5 border-r border-t border-gray-400
 >
 <button
     class="inline-block rounded text-red-400 p-3 text-sm font-medium transition hover:scale-125 hover:shadow-xl focus:outline-none active:text-red-500"
-    wire:click="delete({{ $task->id }})"
+    @if(auth()->check())
+        wire:click="delete({{ $task->id }})"
+    @else
+        wire:click="deleteTaskGuest({{ $task->id }})"
+    @endif
     wire:confirm="Are you sure you want to delete this task?"
 >
     <x-svg.trashcan/>
