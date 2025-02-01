@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\TaskForm;
+use App\Models\GuestTask;
 use App\Models\Task;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
@@ -13,10 +14,18 @@ class TaskEdit extends Component
 {
     public TaskForm $form;
     public string $formContext = 'edit';
+    public GuestTask|Task $task;
 
-    public function mount(Task $task): void
+
+    public function mount($taskID): void
     {
-        $this->form->setTask($task);
+        if (auth()->check()){
+            $this->task = Task::findorfail($taskID);
+        } else {
+            $this->task = GuestTask::findorfail($taskID);
+        }
+        $this->form->setTask($this->task);
+
     }
 
     public function update(): void
