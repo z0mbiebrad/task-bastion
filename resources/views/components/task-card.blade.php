@@ -6,7 +6,11 @@
                         type="checkbox"
                         class="size-4 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:ring-offset-gray-900 focus:ring-offset-gray-900 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 text-green-600/90"
                         id="{{ $task->id }}"
-                        wire:click="completeTask({{$task->id}})"
+                        @if(auth()->check())
+                            wire:click="completeTask({{$task->id}})"
+                        @else
+                            wire:click="completeTaskGuest({{$task->id}})"
+                        @endif
                         @if($task->completed) checked @endif
                     />
                 </span>
