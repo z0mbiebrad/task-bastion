@@ -13,32 +13,36 @@
                             {{ $today }}
                         </p>
                     </div>
-
-                    <!-- Navigation Links -->
-                    <nav class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('task.index')" :active="request()->routeIs('task.index')">
-                            {{ __('Task List') }}
-                        </x-nav-link>
-                    </nav>
                 </div>
 
 
 
                 <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <button
-                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                        wire:click="$dispatch('edit-toggle')"
-                    >
-                        <div>
-                            Edit Tasks
-                        </div>
-                        <div class="ms-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                            </svg>
-                        </div>
-                    </button>
+                    <div class="flex items-center">
+                        <button
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                            wire:click="$dispatch('edit-toggle')"
+                        >
+                            <div>
+                                Edit Tasks
+                            </div>
+                            <div class="ms-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>
+                            </div>
+                        </button>
+                        @if(!auth()->check())
+                        <a
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                            href="{{route('login')}}"
+                        >
+                            {{ __('Sign-In') }}
+                        </a>
+                        @endif
+                    </div>
+                    @if(auth()->check())
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
@@ -73,6 +77,7 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
+                    @endif
                 </div>
 
                 <!-- Hamburger -->
@@ -112,6 +117,8 @@
                 </x-responsive-nav-link>
             </nav>
 
+
+            @if(Auth::user())
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                 <div class="px-4">
@@ -136,6 +143,7 @@
                     </form>
                 </div>
             </div>
+            @endif
         </div>
     </header>
 </div>
