@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\GuestTask;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Session;
@@ -29,7 +30,7 @@ class TaskForm extends Form
     public $taskModel;
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    public function setTask(Task $task)
+    public function setTask(Task|GuestTask $task)
     {
         $this->showFields = true;
         $this->fill([
@@ -47,7 +48,6 @@ class TaskForm extends Form
         $this->validate();
 
         $data = [
-            'user_id' => Auth::id(),
             'task' => $this->task,
             'category' => $this->category,
             'custom_category' => $this->customCategory,
@@ -55,10 +55,29 @@ class TaskForm extends Form
             'custom_task_days' => $this->customTaskDays,
         ];
 
-        $this->taskModel
-            ? $this->taskModel->update($data)
-            : Task::create($data);
+        // Determine if the user is authenticated
+        if (auth()->check()) {
+            $data['user_id'] = auth()->id();
+        } else {
+            $data['guest_id'] = session()->get('guest_id');
+        }
 
+        // Handle task creation or update
+        if (auth()->check()) {
+            if ($this->taskModel) {
+                $this->taskModel->update($data);
+            } else {
+                Task::create($data);
+            }
+        } else {
+            if ($this->taskModel) {
+                $this->taskModel->update($data);
+            } else {
+                GuestTask::create($data);
+            }
+        }
+
+        // Hide fields and reset form values
         $this->showFields = false;
 
         $this->reset([
