@@ -2,19 +2,21 @@
 
 namespace App\Traits;
 
-use App\Models\Task;
-use Illuminate\Support\Facades\Auth;
+use App\Models\GuestTask;
 use Livewire\Attributes\On;
 
-trait HandlesTasks
+trait HandlesGuestTasks
 {
-    public function loadTasks()
+    public function loadGuestTasks()
     {
-        $this->tasks = auth()->user()->tasks;
+        $this->guest_id = session('guest_id');
+
+        $this->tasks = GuestTask::where('guest_id', $this->guest_id)->get();
+
         $this->dispatch('progress-bar', $this->tasks);
     }
 
-    public function delete(Task $task)
+    public function deleteTaskGuest(GuestTask $task)
     {
         $task->delete();
         $this->toggleEditButton = false;
@@ -23,7 +25,7 @@ trait HandlesTasks
         $this->dispatch('task-deleted');
     }
 
-    public function completeTask(Task $task)
+    public function completeTaskGuest(GuestTask $task)
     {
         $task->update(['completed' => !$task->completed]);
 

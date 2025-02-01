@@ -2,32 +2,32 @@
 
 namespace App\Livewire;
 
+use App\Models\GuestTask;
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Session;
 use Livewire\Component;
-use App\Models\Task;
 
 class ProgressBar extends Component
 {
     #[Session]
     public int $progress = 0;
-    #[Computed]
-    public function tasks()
-    {
-        return Auth::user()->tasks;
-    }
+    public array|Collection $tasks = [];
 
-    public function mount()
+    #[On('progress-bar')]
+    public function tasks($tasks)
     {
-        if ($this->tasks === 0) {
-            $this->progress = 0;
+        if (auth()->check()) {
+            $this->tasks = Task::hydrate($tasks);
+        } else {
+            $this->tasks = GuestTask::hydrate($tasks);
         }
+
+        $this->dispatch('progress')->self();
     }
 
-    #[On(['task-created', 'task-completed', 'task-deleted'])]
+    #[On('progress')]
     public function progress()
     {
         $totalTasks = $this->tasks->count();

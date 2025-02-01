@@ -1,8 +1,8 @@
 <div
     x-data="{ progress: $wire.entangle('progress').live }"
-    wire:model="tasks"
 >
-    <x-progress-text :progress="$progress" />
+
+{{--    <x-progress-text :progress="$progress" />--}}
 
     <div
         x-show="progress > 0"

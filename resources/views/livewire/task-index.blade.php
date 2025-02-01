@@ -5,7 +5,7 @@
 
     <livewire:task-message></livewire:task-message>
 
-    <livewire:progress-bar :taskList="$taskList"></livewire:progress-bar>
+    <livewire:progress-bar></livewire:progress-bar>
 
     @foreach ($this->groupedTasks as $category => $tasks)
 
@@ -19,7 +19,7 @@
             <x-task-card :task="$task" />
 
             @if (($editing[$task->id] ?? false) === true)
-            <livewire:task-edit :task="$task" :key="$task->id"></livewire:task-edit>
+            <livewire:task-edit :taskID="$task->id" :key="$task->id"></livewire:task-edit>
             @endif
 
         </div>
