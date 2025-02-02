@@ -5,7 +5,9 @@
 
     <livewire:task-message></livewire:task-message>
 
-    <livewire:progress-bar></livewire:progress-bar>
+{{--    <livewire:progress-bar></livewire:progress-bar>--}}
+
+    <livewire:progress-bar :tasks="$tasks" wire:key="{{ now() }}" />
 
     @foreach ($this->groupedTasks as $category => $tasks)
 

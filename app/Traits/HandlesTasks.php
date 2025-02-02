@@ -11,7 +11,7 @@ trait HandlesTasks
     public function loadTasks()
     {
         $this->tasks = auth()->user()->tasks;
-        $this->dispatch('progress-bar', $this->tasks);
+        $this->dispatch('progress-bar');
     }
 
     public function delete(Task $task)

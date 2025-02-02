@@ -13,21 +13,15 @@ class ProgressBar extends Component
 {
     #[Session]
     public int $progress = 0;
-    public array|Collection $tasks = [];
+    public Collection $tasks;
 
-    #[On('progress-bar')]
-    public function tasks($tasks)
+    public function mount(Collection $tasks)
     {
-        if (auth()->check()) {
-            $this->tasks = Task::hydrate($tasks);
-        } else {
-            $this->tasks = GuestTask::hydrate($tasks);
-        }
-
-        $this->dispatch('progress')->self();
+        $this->tasks = $tasks;
+        $this->progress();
     }
 
-    #[On('progress')]
+    #[On('progress-bar')]
     public function progress()
     {
         $totalTasks = $this->tasks->count();

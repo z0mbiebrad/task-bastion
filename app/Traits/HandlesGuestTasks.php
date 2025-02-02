@@ -13,7 +13,7 @@ trait HandlesGuestTasks
 
         $this->tasks = GuestTask::where('guest_id', $this->guest_id)->get();
 
-        $this->dispatch('progress-bar', $this->tasks);
+        $this->dispatch('progress-bar');
     }
 
     public function deleteTaskGuest(GuestTask $task)

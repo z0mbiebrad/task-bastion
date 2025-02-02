@@ -1,12 +1,8 @@
-<div
-    x-data="{ progress: $wire.entangle('progress').live }"
->
+<div>
 
 {{--    <x-progress-text :progress="$progress" />--}}
-
-    <div
-        x-show="progress > 0"
-    >
+    @if($progress > 0)
+    <div>
         <span
             role="progressbar"
             aria-labelledby="ProgressLabel"
@@ -19,4 +15,5 @@
             <span class="block h-4 rounded-full bg-green-600 text-center" style="width: {{ $progress }}%"></span>
         </span>
     </div>
+    @endif
 </div>
