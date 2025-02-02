@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Task;
+use App\Models\GuestTask;
 use Illuminate\Console\Command;
 
 class ResetTasks extends Command
@@ -27,6 +28,7 @@ class ResetTasks extends Command
     public function handle()
     {
         Task::query()->update(['completed' => false]);
+        GuestTask::query()->update(['completed' => false]);
         $this->info('All tasks have been reset successfully');
     }
 }
