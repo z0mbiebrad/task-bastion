@@ -1,7 +1,7 @@
 <div
     x-data="{
-            inputValue: @entangle('form.task'),
-            showFields: @entangle('form.showFields'),
+            inputValue: $wire.entangle('form.task'),
+            showFields: $wire.entangle('form.showFields'),
             typing: false,
             timeout: null
         }"
