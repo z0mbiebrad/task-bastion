@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Session;
 use Livewire\Component;
 
 class TaskIndex extends Component
@@ -16,6 +17,9 @@ class TaskIndex extends Component
     use HandlesGuestTasks;
 
     public array|Collection $tasks = [];
+
+    #[Session]
+    public int $tutorialStep = 1;
     public string $guest_id = '';
     public array $editing = [];
     public $toggleEditButton = false;
@@ -39,6 +43,12 @@ class TaskIndex extends Component
             session(['guest_id' => Str::uuid()->toString()]);
         }
         $this->determineUser();
+    }
+
+    #[On('set-tutorial-step')]
+    public function setTutorialStep(int $step)
+    {
+        $this->tutorialStep = $step;
     }
 
     #[On('edit-toggle')]
