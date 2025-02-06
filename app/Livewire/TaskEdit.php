@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Cache;
 class TaskEdit extends Component
 {
     public TaskForm $form;
+    public int $tutorialStep;
     public string $formContext = 'edit';
     public GuestTask|Task $task;
 
 
-    public function mount($taskID): void
+    public function mount($taskID, $tutorialStep): void
     {
         if (auth()->check()){
             $this->task = Task::findorfail($taskID);
@@ -25,7 +26,7 @@ class TaskEdit extends Component
             $this->task = GuestTask::findorfail($taskID);
         }
         $this->form->setTask($this->task);
-
+        $this->tutorialStep = $tutorialStep;
     }
 
     public function update(): void

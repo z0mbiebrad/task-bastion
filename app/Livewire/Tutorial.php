@@ -9,15 +9,10 @@ use Livewire\Component;
 class Tutorial extends Component
 {
     #[Reactive]
-    public Collection $tasks;
-    #[Reactive]
-    public int $tasksCount = 0;
-    #[Reactive]
-    public bool $firstTaskCompleted = false;
-    public function mount($tasks, $tasksCount, $firstTaskCompleted)
+    public int $tutorialStep;
+
+    public function mount($tutorialStep)
     {
-        $this->tasks = $tasks;
-        $this->tasksCount = $tasksCount;
-        $this->firstTaskCompleted = $firstTaskCompleted;
+        $this->tutorialStep = $tutorialStep;
     }
 }

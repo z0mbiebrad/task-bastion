@@ -11,6 +11,6 @@ class Navigation extends Component
 
     public function mount()
     {
-        $this->today = Carbon::now()->format('l');
+        $this->today = Carbon::now()->format('l, j');
     }
 }

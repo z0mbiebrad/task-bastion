@@ -11,7 +11,7 @@ use Livewire\Form;
 
 class TaskForm extends Form
 {
-    #[Validate('required|string|min:1|max:255')]
+    #[Validate('required|string|min:1|max:255', onUpdate: false)]
     public $task = '';
 
     #[Validate('nullable|string')]
@@ -45,6 +45,10 @@ class TaskForm extends Form
 
     public function save()
     {
+        if ($this->task === '') {
+            return;
+        }
+
         $this->validate();
 
         $data = [

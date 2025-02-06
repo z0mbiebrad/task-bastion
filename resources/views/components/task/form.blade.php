@@ -2,22 +2,32 @@
     x-data="{
             inputValue: $wire.entangle('form.task'),
             showFields: $wire.entangle('form.showFields'),
+            tutorialStep: $wire.entangle('tutorialStep'),
             typing: false,
+            dispatched: false,
+            formSubmitted: false,
             timeout: null
         }"
+    x-on:form-submitted="formSubmitted = true"
     x-effect="
-        if (inputValue === '') {
+        if (typing && !dispatched && tutorialStep === 1) {
+            $dispatch('set-tutorial-step', [2]);
+            dispatched = true;
+        } else if (inputValue === '') {
             showFields = false;
         }
     "
+    class="p-4 bg-gradient-to-r from-white to-gray-200"
 >
     <form
         wire:submit.prevent="{{ $submitAction }}"
-        class="shadow-md rounded-lg"
     >
         <div>
             {{-- Task Input --}}
-            <x-task.input :formContext="$formContext"/>
+            <x-task.input
+                :formContext="$formContext"
+                :tutorialStep="$tutorialStep"
+            />
 
             {{-- Task Input Error --}}
             <x-task.error-message type="form.task"/>
@@ -25,9 +35,11 @@
             <div
                 x-show="showFields"
             >
-                <div class="text-blue-400 text-center my-4">
-                    (Optional)
-                </div>
+                @if ($tutorialStep === 2)
+                    <div class="text-blue-400 text-center mt-4">
+                        (Optional)
+                    </div>
+                @endif
                 {{-- Category Input --}}
                 <x-task.category-input />
 
