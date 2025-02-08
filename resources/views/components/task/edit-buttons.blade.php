@@ -15,6 +15,8 @@ class="flex items-center justify-end mb-1 mt-5 border-r border-t border-gray-400
 </button>
 <button
     class="flex rounded text-blue-400 p-3 text-sm font-medium transition hover:scale-125 hover:shadow-xl focus:outline-none active:text-blue-500"
+    x-bind:class="{'animate-bounce': tutorialStep === 5}"
+    @click="if (tutorialStep === 5) {$dispatch('set-tutorial-step', [6])}"
     wire:click="editButton({{ $task->id }})"
 >
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

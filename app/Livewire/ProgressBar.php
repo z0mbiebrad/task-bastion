@@ -13,11 +13,13 @@ class ProgressBar extends Component
 {
     #[Session]
     public int $progress = 0;
+    public int $tutorialStep;
     public Collection $tasks;
 
-    public function mount(Collection $tasks)
+    public function mount(Collection $tasks, $tutorialStep)
     {
         $this->tasks = $tasks;
+        $this->tutorialStep = $tutorialStep;
         $this->progress();
     }
 

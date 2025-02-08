@@ -1,30 +1,59 @@
-<div class="w-11/12 sm:w-2/3 md:w-3/5 lg:w-2/5 mx-auto">
-    <x-slot name="header">
-        <livewire:task-create></livewire:task-create>
-    </x-slot>
+<div
+    x-data="{
+        tutorialStep: $wire.entangle('tutorialStep'),
+        tutorialStarted: $wire.entangle('tutorialStarted'),
+        clicked: false,
+    }"
+{{--    x-on:tutorial-start="tutorialStarted = true"--}}
+>
+    <livewire:navigation :tutorialStep="$tutorialStep"></livewire:navigation>
+    <livewire:progress-bar
+        :tasks="$tasks"
+        :tutorialStep="$tutorialStep"
+        wire:key="{{ now() }}"
+    />
+    <livewire:task-create :tutorialStep="$tutorialStep"></livewire:task-create>
 
-    <livewire:task-message></livewire:task-message>
+    <div>
 
-{{--    <livewire:progress-bar></livewire:progress-bar>--}}
-
-    <livewire:progress-bar :tasks="$tasks" wire:key="{{ now() }}" />
-
-    @foreach ($this->groupedTasks as $category => $tasks)
-
-        <x-category-header :category="$category" />
-
-        @foreach ($tasks as $task)
-        <div wire:key="{{ $task->id }}">
-
-            <x-task.edit-buttons :task="$task" :editing="$editing"/>
-
-            <x-task-card :task="$task" />
-
-            @if (($editing[$task->id] ?? false) === true)
-            <livewire:task-edit :taskID="$task->id" :key="$task->id"></livewire:task-edit>
-            @endif
-
+        <div class="h-8">
+            <livewire:task-message></livewire:task-message>
         </div>
+
+        <livewire:tutorial :tutorialStep="$tutorialStep"></livewire:tutorial>
+
+        @if($tasks->count() === 0 && !auth()->check() && !$tutorialStarted)
+            <x-hero />
+        @endif
+
+        @foreach ($this->groupedTasks as $category => $tasks)
+
+            <x-category-header :category="$category"/>
+
+            @foreach ($tasks as $task)
+                <div wire:key="{{ $task->id }}">
+
+                    <x-task.edit-buttons
+                        :task="$task"
+                        :tutorialStep="$tutorialStep"
+                        :editing="$editing"
+                    />
+
+                    <x-task-card
+                        :task="$task"
+                        :tutorialStep="$tutorialStep"
+                    />
+
+                    @if (($editing[$task->id] ?? false) === true)
+                        <livewire:task-edit
+                            :taskID="$task->id"
+                            :tutorialStep="$tutorialStep"
+                            :key="$task->id"
+                        ></livewire:task-edit>
+                    @endif
+
+                </div>
+            @endforeach
         @endforeach
-    @endforeach
+    </div>
 </div>

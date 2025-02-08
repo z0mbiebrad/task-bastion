@@ -1,17 +1,23 @@
 <div>
-    <header x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+    <header
+        x-data="{
+            open: false,
+            editClicked: false,
+            hamburgerClicked: false
+            }"
+        class="bg-gradient-to-l from-white to-gray-200 dark:bg-gray-800 border-b border-gray-400 dark:border-gray-700"
+    >
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
-                    <div class="shrink-0 flex items-center">
+                    <div class="shrink-0 flex items-center font-semibold">
                         <a href="{{ route('task.index') }}">
-                            <img src="{{ asset('images/logo.png') }}" alt="" class="h-14">
+                            <p class="text-black/80 dark:text-gray-400 ml-2">
+                                {{ $today }}
+                            </p>
                         </a>
-                        <p class="text-gray-400 ml-2">
-                            {{ $today }}
-                        </p>
                     </div>
                 </div>
 
@@ -21,7 +27,9 @@
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <div class="flex items-center">
                         <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-gray-300 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                            x-bind:class="{'animate-bounce': tutorialStep === 4 && !editClicked}"
+                            @click="if (tutorialStep === 4) { $dispatch('set-tutorial-step', [5]) }; editClicked = true"
                             wire:click="$dispatch('edit-toggle')"
                         >
                             <div>
@@ -89,7 +97,9 @@
                 <!-- Hamburger -->
                 <div class="-me-2 flex items-center sm:hidden">
                     <button
-                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-900 dark:text-gray-400  dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                        x-bind:class="{'animate-bounce': tutorialStep === 4 && !editClicked}"
+                        @click="if (tutorialStep === 4) { $dispatch('set-tutorial-step', [5]) }"
                         wire:click="$dispatch('edit-toggle')"
                     >
                         <div>
@@ -101,8 +111,10 @@
                             </svg>
                         </div>
                     </button>
-                    <button @click="open = ! open"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
+                    <button
+                        @click="open = ! open; hamburgerClicked = true"
+                        x-bind:class="{'animate-bounce': tutorialStep === 7 && !hamburgerClicked}"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-800 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -118,12 +130,12 @@
         <!-- Responsive Navigation Menu -->
         <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
             @if(!auth()->check())
-                <a
-                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                    href="{{route('login')}}"
-                >
-                    {{ __('Sign-In') }}
-                </a>
+                <x-responsive-nav-link :href="route('login')">
+                    {{ __('Login') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('register')">
+                    {{ __('Register') }}
+                </x-responsive-nav-link>
             @endif
 
             @if(Auth::user())
@@ -133,12 +145,6 @@
                     <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
-                <x-responsive-nav-link :href="route('login')">
-                    {{ __('Login') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('register')">
-                    {{ __('Register') }}
-                </x-responsive-nav-link>
 
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('profile.edit')">
