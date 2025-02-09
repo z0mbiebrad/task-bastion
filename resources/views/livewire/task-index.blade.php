@@ -6,7 +6,6 @@
     }"
 {{--    x-on:tutorial-start="tutorialStarted = true"--}}
 >
-    <livewire:navigation :tutorialStep="$tutorialStep"></livewire:navigation>
     <livewire:progress-bar
         :tasks="$tasks"
         :tutorialStep="$tutorialStep"
