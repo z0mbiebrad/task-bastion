@@ -2,31 +2,21 @@
     x-data="{
             inputValue: $wire.entangle('form.task'),
             showFields: $wire.entangle('form.showFields'),
-            tutorialStep: $wire.entangle('tutorialStep'),
             typing: false,
-            dispatched: false,
-            formSubmitted: false,
             timeout: null
         }"
-    x-on:form-submitted="formSubmitted = true"
-    x-effect="
-        if (typing && !dispatched && tutorialStep === 1) {
-            $dispatch('set-tutorial-step', [2]);
-            dispatched = true;
-        } else if (inputValue === '') {
-            showFields = false;
-        }
-    "
-    class="p-4 bg-gradient-to-r from-white to-gray-200"
+    x-effect="if (!inputValue) {
+                    $nextTick(() => showFields = false);
+                }"
 >
     <form
+
+        class="p-4 border-b border-neutral-300 dark:border-neutral-700"
         wire:submit.prevent="{{ $submitAction }}"
     >
-        <div>
             {{-- Task Input --}}
             <x-task.input
                 :formContext="$formContext"
-                :tutorialStep="$tutorialStep"
             />
 
             {{-- Task Input Error --}}
@@ -35,11 +25,7 @@
             <div
                 x-show="showFields"
             >
-                @if ($tutorialStep === 2)
-                    <div class="text-blue-400 text-center mt-4">
-                        (Optional)
-                    </div>
-                @endif
+                
                 {{-- Category Input --}}
                 <x-task.category-input />
 
@@ -64,6 +50,5 @@
 
                 <x-task.error-message type="form.customTaskDays"/>
             </div>
-        </div>
     </form>
 </div>
