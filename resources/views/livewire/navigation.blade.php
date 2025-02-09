@@ -1,169 +1,69 @@
-<div>
-    <header
-        x-data="{
-            open: false,
-            editClicked: false,
-            hamburgerClicked: false
-            }"
-        class="bg-gradient-to-l from-white to-gray-200 dark:bg-gray-800 border-b border-gray-400 dark:border-gray-700"
-    >
-        <!-- Primary Navigation Menu -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <!-- Logo -->
-                    <div class="shrink-0 flex items-center font-semibold">
-                        <a href="{{ route('task.index') }}">
-                            <p class="text-black/80 dark:text-gray-400 ml-2">
-                                {{ $today }}
-                            </p>
-                        </a>
-                    </div>
-                </div>
+<nav 
+    x-data="{ 
+        mobileMenuIsOpen: false,
+        editClicked: false
+        }" 
+    x-on:click.away="mobileMenuIsOpen = false" 
+    class="flex items-center justify-between bg-neutral-50 border-b border-neutral-300 px-6 py-4 dark:border-neutral-700 dark:bg-neutral-900" aria-label="penguin ui menu"
+>
+	<!-- Brand Logo -->
+	<a href="#" class="text-lg font-bold text-neutral-900 dark:text-white">
+        {{ $today }}
+		<!-- <img src="./your-logo.svg" alt="brand logo" class="w-10" /> -->
+	</a>
 
+    <div class="flex items-center gap-6">   
+        <li class="flex items-center">
+            <a 
+                @click="editClicked = !editClicked"
+                wire:click="$dispatch('edit-toggle')"
+                class="flex items-center font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white hover:cursor-pointer"
+            >
+                Edit Tasks 
+                <svg x-show="editClicked" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 ml-1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                </svg>
+            </a>
+        </li>
 
-
-                <!-- Settings Dropdown -->
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <div class="flex items-center">
-                        <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-gray-300 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                            x-bind:class="{'animate-bounce': tutorialStep === 4 && !editClicked}"
-                            @click="if (tutorialStep === 4) { $dispatch('set-tutorial-step', [5]) }; editClicked = true"
-                            wire:click="$dispatch('edit-toggle')"
-                        >
-                            <div>
-                                Edit Tasks
-                            </div>
-                            <div class="ms-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                </svg>
-                            </div>
-                        </button>
-                        @if(!auth()->check())
-                        <a
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                            href="{{route('login')}}"
-                        >
-                            {{ __('Login') }}
-                        </a>
-                        <a
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                            href="{{route('register')}}"
-                        >
-                            {{ __('Register') }}
-                        </a>
-                        @endif
-                    </div>
-                    @if(auth()->check())
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{ Auth::user()->name }}</div>
-
-                                <div class="ms-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </button>
-                        </x-slot>
-
-                        <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Profile') }}
-                            </x-dropdown-link>
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-
-                                <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
-                        </x-slot>
-                    </x-dropdown>
-                    @endif
-                </div>
-
-                <!-- Hamburger -->
-                <div class="-me-2 flex items-center sm:hidden">
-                    <button
-                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-900 dark:text-gray-400  dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                        x-bind:class="{'animate-bounce': tutorialStep === 4 && !editClicked}"
-                        @click="if (tutorialStep === 4) { $dispatch('set-tutorial-step', [5]) }"
-                        wire:click="$dispatch('edit-toggle')"
-                    >
-                        <div>
-                            Edit Tasks
-                        </div>
-                        <div class="ms-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                            </svg>
-                        </div>
-                    </button>
-                    <button
-                        @click="open = ! open; hamburgerClicked = true"
-                        x-bind:class="{'animate-bounce': tutorialStep === 7 && !hamburgerClicked}"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-800 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                            <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Responsive Navigation Menu -->
-        <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-            @if(!auth()->check())
-                <x-responsive-nav-link :href="route('login')">
-                    {{ __('Login') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('register')">
-                    {{ __('Register') }}
-                </x-responsive-nav-link>
+        <!-- Desktop Menu -->
+        <ul class="hidden items-center gap-4 md:flex">
+            
+            <li>
+                <a href="{{ route('login') }}" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
+                    Login
+                </a>
+            </li>
+            <li>
+                <a href="#" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
+                    Register
+                </a>
+            </li>
+        </ul>
+        <!-- Mobile Menu Button -->
+        <button x-on:click="mobileMenuIsOpen = !mobileMenuIsOpen" x-bind:aria-expanded="mobileMenuIsOpen" x-bind:class="mobileMenuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="flex text-neutral-600 dark:text-neutral-300 md:hidden" aria-label="mobile menu" aria-controls="mobileMenu">
+            <svg x-cloak x-show="!mobileMenuIsOpen" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <svg x-cloak x-show="mobileMenuIsOpen" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <!-- Mobile Menu -->
+        <ul x-cloak x-show="mobileMenuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="mobileMenu" class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-neutral-300 rounded-b-sm border-b border-neutral-300 bg-neutral-50 px-6 pb-6 pt-20 dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 md:hidden">
+            @if (!auth()->check())
+                <li class="py-4">
+                    <a href="{{ route('login') }}" class="w-full text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">
+                        Login
+                    </a>
+                </li>
+                <li class="py-4">
+                    <a href="{{ route('register') }}" class="w-full text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">
+                        Register
+                    </a>
+                </li>
             @endif
+        </ul>
+    </div>
 
-            @if(Auth::user())
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
-
-                <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
-
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-
-                        <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-responsive-nav-link>
-                    </form>
-                </div>
-            </div>
-            @endif
-        </div>
-    </header>
-</div>
+</nav>
