@@ -18,6 +18,8 @@
     <body class="font-sans antialiased bg-white dark:bg-gray-900">
         <!-- Page Content -->
         <main class="min-h-screen">
+            <livewire:navigation/>
+
             {{ $slot }}
         </main>
     </body>
