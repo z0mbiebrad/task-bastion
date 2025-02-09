@@ -11,7 +11,6 @@
         :tutorialStep="$tutorialStep"
         wire:key="{{ now() }}"
     />
-    <livewire:task-create :tutorialStep="$tutorialStep"></livewire:task-create>
 
     <div>
 
