@@ -1,18 +1,14 @@
-<div class="">
-    <div class="flex items-center justify-between">
-        <label
+<div class="flex mx-auto max-w-3xl flex-col text-neutral-600 dark:text-neutral-300 justify-center bg-white dark:bg-black">
+    <label
         x-show="showFields"
         x-transition:enter.duration.500ms
         x-transition:leave.duration.0ms
         for="task"
-        class="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2"
-        >
-            Describe your task
-        </label>
-        <!-- Submit Button -->
-        <x-task.submit-button :formContext="$formContext"/>
-    </div>
-
+        for="textInputDefault" 
+        class="w-fit pl-0.5 text-sm mt-6 mb-2"
+    >
+        Task Description
+    </label>
     <input
         wire:model.='form.task'
         x-on:input="
@@ -21,14 +17,11 @@
             clearTimeout(timeout);
             timeout = setTimeout(() => typing = false, 500)
         "
-        x-bind:class="{
-                'animate-bounce': tutorialStep === 1 && inputValue === '',
-            }"
-        autocomplete="off"
-        type="text"
         id="task"
-        class="py-1 px-2 block w-full bg-gradient-to-br from-gray-200 to-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 placeholder:text-black/80 dark:placeholder-gray-100 @error('form.task') required:border-red-500 @enderror"
-        placeholder="Add a task"
+        type="text" 
+        class="w-full rounded-sm border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-white placeholder:text-neutral-500 dark:placeholder:text-neutral-300" 
+        placeholder="Start typing to add a task." 
+        autocomplete="off"
         required
     />
 </div>
