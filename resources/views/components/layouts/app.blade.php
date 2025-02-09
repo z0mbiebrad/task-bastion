@@ -15,10 +15,12 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-white dark:bg-gray-900">
+    <body class="font-sans antialiased bg-white dark:bg-black">
         <!-- Page Content -->
         <main class="min-h-screen">
             <livewire:navigation/>
+            <livewire:task-create />
+
 
             {{ $slot }}
         </main>
