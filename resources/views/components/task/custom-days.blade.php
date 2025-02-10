@@ -1,13 +1,3 @@
-{{-- <div
-    class="mb-4" 
->
-    <label for="daysOfWeek" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Days Of Week</label>
-    <div class="mt-2 flex items-center justify-between">
-        @foreach ($days as $day)
-            <x-task.days-checkbox :day="$day" :formContext="$formContext" />
-        @endforeach
-    </div>
-</div> --}}
 <div 
     x-show="$wire.form.taskDays === 'custom'"
     x-data="{
