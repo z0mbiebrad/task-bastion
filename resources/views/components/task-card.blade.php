@@ -1,19 +1,13 @@
 <label
     for="{{ $task->id }}"
-    class="flex my-4 cursor-pointer items-center gap-4 rounded-lg border w-11/12 mx-auto p-4 transition
-    {{
-        !$task->completed
-            ? 'bg-gradient-to-bl from-white to-gray-100'
-            : 'bg-gradient-to-bl from-green-100 to-gray-100'
-    }}"
+    class="flex my-6 cursor-pointer items-center shadow-sm dark:shadow-neutral-600 gap-4 rounded-lg border text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 w-11/12 max-w-2xl mx-auto p-4 transition"
     @click="if (tutorialStep === 3) { $dispatch('set-tutorial-step', [4]) }; clicked = true"
-    x-bind:class="{ 'animate-bounce': tutorialStep === 3 && !clicked}"
 >
     <span class="inline-flex items-center">
         <label class="flex items-center cursor-pointer relative">
             <input
                 type="checkbox"
-                class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
+                class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-neutral-600 checked:bg-neutral-600 checked:border-slate-800"
                 id="{{ $task->id }}"
                 @if(auth()->check())
                     wire:click="completeTask({{$task->id}})"
@@ -30,12 +24,12 @@
         </label>
     </span>
 
-    <span class="flex items-center justify-between w-full">
+    <span class="w-full">
         <strong
             class="font-medium {{
                 $task->completed
                 ? 'line-through '
-                : 'text-gray-900 dark:text-white'
+                : ''
             }}">
             {{ ucwords($task->task) }}
         </strong>
