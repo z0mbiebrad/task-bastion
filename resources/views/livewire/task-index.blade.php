@@ -6,13 +6,11 @@
     }"
 {{--    x-on:tutorial-start="tutorialStarted = true"--}}
 >
-    <livewire:navigation :tutorialStep="$tutorialStep"></livewire:navigation>
     <livewire:progress-bar
         :tasks="$tasks"
         :tutorialStep="$tutorialStep"
         wire:key="{{ now() }}"
     />
-    <livewire:task-create :tutorialStep="$tutorialStep"></livewire:task-create>
 
     <div>
 

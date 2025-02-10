@@ -1,12 +1,21 @@
-<div class="my-8">
-    @if ($category)
-        <h3 class="text-xl text-gray-700 dark:text-gray-200 border-b border-gray-400 font-semibold leading-relaxed text-center mx-auto shadow-lg dark:border-gray-700 pb-2">
-            {{ ucwords($category) }}
-        </h3>
-    @endif
-    @if (!$category)
-        <h3 class="text-xl text-gray-700 dark:text-gray-200 border-b border-gray-400 font-semibold leading-relaxed text-center mx-auto shadow-lg dark:border-gray-700 pb-2">
-            Uncategorized
-        </h3>
-    @endif
-</div>
+    <div class="my-8">
+        @if ($category)
+            <span class="flex items-center">
+                <span class="h-px flex-1 bg-neutral-700 dark:bg-neutral-200"></span>
+                <span class="shrink-0 px-6 text-2xl dark:text-neutral-200">
+                    {{ ucwords($category) }}
+                </span>
+                <span class="h-px flex-1 bg-neutral-700 dark:bg-neutral-200"></span>
+            </span>
+        @endif
+
+        @if (!$category)
+            <span class="flex items-center">
+                <span class="h-px flex-1 bg-neutral-700 dark:bg-neutral-200"></span>
+                <span class="shrink-0 px-6 text-2xl dark:text-neutral-200">
+                    Uncategorized
+                </span>
+                <span class="h-px flex-1 bg-neutral-700 dark:bg-neutral-200"></span>
+            </span>
+        @endif
+    </div>

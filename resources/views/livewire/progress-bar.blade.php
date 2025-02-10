@@ -5,10 +5,12 @@
                 role="progressbar"
                 aria-labelledby="ProgressLabel"
                 aria-valuenow="{{ $progress }}"
-                class="relative block bg-gray-200 dark:bg-gray-700 {{ $tutorialStep === 4 ? 'animate-pulse' : '' }}"
+                class="relative block text-right max-w-2xl mx-auto text-neutral-800 dark:text-neutral-200 {{ $tutorialStep === 4 ? 'animate-pulse' : '' }}"
             >
-                <span class="block h-4 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-center text-[10px]/4" style="width: {{ $progress }}%">
-                    <span class="font-bold text-white"> {{ $progress }}% </span>
+                <span class="block h-2 bg-black dark:bg-white text-center text-[10px]/4" style="width: {{ $progress }}%">
+                </span>
+                <span>
+                    Daily Progress: {{ $progress }}%
                 </span>
             </span>
         </div>
