@@ -28,7 +28,6 @@ class TaskForm extends Form
 
     public $showFields = false;
     public $taskModel;
-    public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
     public function setTask(Task|GuestTask $task)
     {
