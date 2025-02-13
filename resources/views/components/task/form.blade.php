@@ -11,7 +11,7 @@
 >
     <form
 
-        class="px-6 py-4 border-b max-w-2xl mx-auto border-neutral-300 dark:border-neutral-700"
+        class="px-6 md:px-0 py-4 border-b max-w-2xl mx-auto border-neutral-300 dark:border-neutral-700"
         wire:submit.prevent="{{ $submitAction }}"
     >
             <x-task.input
