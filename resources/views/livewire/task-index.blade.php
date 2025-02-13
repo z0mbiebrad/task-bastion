@@ -4,15 +4,19 @@
         tutorialStarted: $wire.entangle('tutorialStarted'),
         clicked: false,
     }"
-{{--    x-on:tutorial-start="tutorialStarted = true"--}}
 >
+
+    <livewire:navigation :$tasks/>
+
+    <livewire:task-create />
+
     <livewire:progress-bar
         :tasks="$tasks"
         :tutorialStep="$tutorialStep"
         wire:key="{{ now() }}"
     />
 
-    <div>
+    <div class="mx-6">
 
         <div class="h-8">
             <livewire:task-message></livewire:task-message>
