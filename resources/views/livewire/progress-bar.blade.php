@@ -5,7 +5,7 @@
                 role="progressbar"
                 aria-labelledby="ProgressLabel"
                 aria-valuenow="{{ $progress }}"
-                class="relative block text-right max-w-2xl mx-auto text-neutral-800 dark:text-neutral-200 {{ $tutorialStep === 4 ? 'animate-pulse' : '' }}"
+                class="relative block text-right max-w-2xl mx-auto text-neutral-800 dark:text-neutral-200"
             >
                 <span class="block h-2 bg-black dark:bg-white text-center text-[10px]/4" style="width: {{ $progress }}%">
                 </span>
