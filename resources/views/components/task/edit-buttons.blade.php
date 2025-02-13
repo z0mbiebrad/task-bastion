@@ -10,8 +10,6 @@
         </button>
         <button
             class="flex rounded text-neutral-800 dark:text-neutral-200 p-3 text-sm font-medium transition hover:scale-125 hover:shadow-xl focus:outline-none active:text-blue-500"
-            x-bind:class="{ 'animate-bounce': tutorialStep === 5 }"
-            @click="if (tutorialStep === 5) {$dispatch('set-tutorial-step', [6])}"
             wire:click="editButton({{ $task->id }})">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-6">

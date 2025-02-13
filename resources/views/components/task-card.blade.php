@@ -1,7 +1,7 @@
 <label
     for="{{ $task->id }}"
     class="flex my-6 cursor-pointer items-center shadow-sm dark:shadow-neutral-600 gap-4 rounded-lg border text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 w-11/12 max-w-2xl mx-auto p-4 transition"
-    @click="if (tutorialStep === 3) { $dispatch('set-tutorial-step', [4]) }; clicked = true"
+    @click="clicked = true"
 >
     <span class="inline-flex items-center">
         <label class="flex items-center cursor-pointer relative">
