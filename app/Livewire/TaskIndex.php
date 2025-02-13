@@ -18,12 +18,6 @@ class TaskIndex extends Component
 
     public array|Collection $tasks = [];
 
-    #[Session]
-    public ?int $tutorialStep = 0;
-    #[Session]
-    public bool $tutorialStarted = false;
-
-    public bool $tutorialCompleted = false;
     public string $guest_id = '';
     public array $editing = [];
     public $toggleEditButton = false;
@@ -39,9 +33,6 @@ class TaskIndex extends Component
     public function determineUser()
     {
         auth()->check() ? $this->loadTasks() : $this->loadGuestTasks();
-        if ($this->tutorialStep === 7) {
-            $this->setTutorialStep(0);
-        }
     }
 
     public function mount()
@@ -50,25 +41,6 @@ class TaskIndex extends Component
             session(['guest_id' => Str::uuid()->toString()]);
         }
         $this->determineUser();
-    }
-
-    #[On('set-tutorial-step')]
-    public function setTutorialStep(int $step)
-    {
-
-        $this->tutorialStep = $step;
-    }
-
-    #[On('set-tutorial-start')]
-    public function setTutorialStarted()
-    {
-        $this->tutorialStarted = true;
-    }
-
-    #[On('set-tutorial-complete')]
-    public function setTutorialCompleted()
-    {
-        $this->tutorialCompleted = true;
     }
 
     #[On('edit-toggle')]
