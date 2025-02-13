@@ -29,10 +29,6 @@
 
         <!-- Page Content -->
         <main class="min-h-screen">
-            <livewire:navigation/>
-            <livewire:task-create />
-
-
             {{ $slot }}
         </main>
     </body>

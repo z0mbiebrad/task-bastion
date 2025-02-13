@@ -1,4 +1,4 @@
-<div class="bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white shadow-lg rounded-lg p-6 max-w-lg mx-auto">
+<div class="bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white shadow-lg rounded-lg p-6 max-w-2xl mx-auto">
     <h1 class="text-2xl font-bold">Welcome to Tasilisk</h1>
     <p class="mt-4 leading-relaxed">
         <span class="font-semibold">Tasilisk is a sleek and simple task tracker</span> designed to keep you organized. Its intuitive interface lets you
