@@ -19,7 +19,7 @@
             <livewire:task-message></livewire:task-message>
         </div>
 
-        @if($tasks->count() === 0 && !Auth::check())
+        @if($tasks->count() === 0)
             <x-hero />
         @endif
 
