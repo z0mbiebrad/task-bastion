@@ -9,11 +9,7 @@
                 type="checkbox"
                 class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-neutral-600 checked:bg-neutral-600 checked:border-slate-800"
                 id="{{ $task->id }}"
-                @if(auth()->check())
-                    wire:click="completeTask({{$task->id}})"
-                @else
-                    wire:click="completeTaskGuest({{$task->id}})"
-                @endif
+                wire:click="completeTask({{$task->id}})"
                 @if($task->completed) checked @endif
             />
             <span class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
