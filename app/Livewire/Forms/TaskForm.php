@@ -58,29 +58,20 @@ class TaskForm extends Form
             'custom_task_days' => $this->customTaskDays,
         ];
 
-        // Determine if the user is authenticated
-        if (auth()->check()) {
-            $data['user_id'] = auth()->id();
+        Auth::check()
+            ? $data['user_id'] = Auth::id()
+            : $data['guest_id'] = session()->get('guest_id')
+        ;
+        
+        if ($this->taskModel) {
+            $this->taskModel->update($data);
         } else {
-            $data['guest_id'] = session()->get('guest_id');
+            Auth::check() 
+                ? Task::create($data)
+                : GuestTask::create($data)
+            ;
         }
 
-        // Handle task creation or update
-        if (auth()->check()) {
-            if ($this->taskModel) {
-                $this->taskModel->update($data);
-            } else {
-                Task::create($data);
-            }
-        } else {
-            if ($this->taskModel) {
-                $this->taskModel->update($data);
-            } else {
-                GuestTask::create($data);
-            }
-        }
-
-        // Hide fields and reset form values
         $this->showFields = false;
 
         $this->reset([

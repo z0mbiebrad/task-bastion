@@ -2,16 +2,12 @@
     <div class="flex items-center justify-end -mb-6 mt-5 border-t border-neutral-400 rounded-lg max-w-2xl mx-auto">
         <button
             class="inline-block rounded text-neutral-800 dark:text-neutral-200 p-3 text-sm font-medium transition hover:scale-125 hover:shadow-xl focus:outline-none active:text-red-500"
-            @if (auth()->check()) wire:click="delete({{ $task->id }})"
-    @else
-        wire:click="deleteTaskGuest({{ $task->id }})" @endif
+            wire:click="delete({{ $task->id }})"
             wire:confirm="Are you sure you want to delete this task?">
             <x-svg.trashcan />
         </button>
         <button
             class="flex rounded text-neutral-800 dark:text-neutral-200 p-3 text-sm font-medium transition hover:scale-125 hover:shadow-xl focus:outline-none active:text-blue-500"
-            x-bind:class="{ 'animate-bounce': tutorialStep === 5 }"
-            @click="if (tutorialStep === 5) {$dispatch('set-tutorial-step', [6])}"
             wire:click="editButton({{ $task->id }})">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-6">

@@ -1,8 +1,6 @@
 <?php
 
-use App\Livewire\TaskCreate;
 use App\Livewire\TaskIndex;
-use App\Livewire\GuestTaskIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', TaskIndex::class)
