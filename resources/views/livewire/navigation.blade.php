@@ -13,7 +13,7 @@
     <div class="flex items-center gap-6"> 
         <button 
             @click="darkMode = !darkMode" 
-            class="text-neutral-600 hover:text-black hover:cursor-pointer dark:text-neutral-300 dark:hover:text-white"
+            class="text-neutral-600 cursor-pointer hover:text-black hover:cursor-pointer dark:text-neutral-300 dark:hover:text-white"
         >
             <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
@@ -32,7 +32,7 @@
                 <a 
                     @click="editClicked = !editClicked"
                     wire:click="$dispatch('edit-toggle')"
-                    class="flex items-center font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white hover:cursor-pointer"
+                    class="flex items-center cursor-pointer font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white hover:cursor-pointer"
                 >
                     Edit Tasks
                     <svg x-cloak x-show="editClicked" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 ml-1">
@@ -42,21 +42,31 @@
             </div>
         @endif
 
-        <ul class="hidden items-center gap-4 md:flex">
-            
+        <ul class="hidden items-center gap-6 md:flex">
+        @auth
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="font-medium cursor-pointer text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        @else
             <li>
                 <a href="{{ route('login') }}" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
                     Login
                 </a>
             </li>
             <li>
-                <a href="#" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
+                <a href="{{ route('register') }}" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
                     Register
                 </a>
             </li>
+        @endauth
         </ul>
         <!-- Mobile Menu Button -->
-        <button x-on:click="mobileMenuIsOpen = !mobileMenuIsOpen" x-bind:aria-expanded="mobileMenuIsOpen" x-bind:class="mobileMenuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="flex text-neutral-600 dark:text-neutral-300 md:hidden" aria-label="mobile menu" aria-controls="mobileMenu">
+        <button x-on:click="mobileMenuIsOpen = !mobileMenuIsOpen" x-bind:aria-expanded="mobileMenuIsOpen" x-bind:class="mobileMenuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="cursor-pointer flex text-neutral-600 dark:text-neutral-300 md:hidden" aria-label="mobile menu" aria-controls="mobileMenu">
             <svg x-cloak x-show="!mobileMenuIsOpen" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
@@ -66,18 +76,27 @@
         </button>
         <!-- Mobile Menu -->
         <ul x-cloak x-show="mobileMenuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="mobileMenu" class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-neutral-300 rounded-b-sm border-b border-neutral-300 bg-neutral-50 px-6 pb-6 pt-20 dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 md:hidden">
-            @if (!Auth::check())
+            @auth
                 <li class="py-4">
-                    <a href="{{ route('login') }}" class="w-full text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full text-left cursor-pointer text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            @else
+                <li class="py-4">
+                    <a href="{{ route('login') }}" class="w-full cursor-pointer text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">
                         Login
                     </a>
                 </li>
                 <li class="py-4">
-                    <a href="{{ route('register') }}" class="w-full text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">
+                    <a href="{{ route('register') }}" class="w-full cursor-pointer text-lg font-medium text-neutral-600 focus:underline dark:text-neutral-300">
                         Register
                     </a>
                 </li>
-            @endif
+            @endauth
         </ul>
     </div>
 
