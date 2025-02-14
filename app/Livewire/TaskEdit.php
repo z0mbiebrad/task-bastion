@@ -5,9 +5,9 @@ namespace App\Livewire;
 use App\Livewire\Forms\TaskForm;
 use App\Models\GuestTask;
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
-use Illuminate\Support\Facades\Cache;
 
 #[Lazy]
 class TaskEdit extends Component
@@ -19,11 +19,8 @@ class TaskEdit extends Component
 
     public function mount($taskID): void
     {
-        if (auth()->check()){
-            $this->task = Task::findorfail($taskID);
-        } else {
-            $this->task = GuestTask::findorfail($taskID);
-        }
+        $this->task = Auth::check() ? Task::findOrFail($taskID) : GuestTask::findOrFail($taskID);
+        
         $this->form->setTask($this->task);
     }
 
