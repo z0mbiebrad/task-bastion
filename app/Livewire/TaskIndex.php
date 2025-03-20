@@ -13,8 +13,11 @@ class TaskIndex extends Component
 {
     use HandlesTasks;
 
-    public array|Collection $tasks = [];
+    public Collection $tasks;
+    public Collection $todaysTasks;
+    public Collection $allTasks;
 
+    public $currentDay;
     public string $guest_id = '';
     public array $editing = [];
     public $toggleEditButton = false;

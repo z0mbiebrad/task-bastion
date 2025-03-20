@@ -22,6 +22,8 @@
         @if($tasks->count() === 0)
             <x-hero />
         @endif
+        <button class="text-white" wire:click="taskSortToggle(true)">Today</button>
+        <button class="text-white" wire:click="taskSortToggle(false)">Today</button>
 
         @foreach ($this->groupedTasks as $category => $tasks)
 
