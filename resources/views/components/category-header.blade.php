@@ -7,8 +7,9 @@
                 </span>
                 <span class="flex-1 h-px max-w-2xl bg-zinc-700 dark:bg-zinc-200"></span>
             </span>
-        @endif
-
+            <span class="h-px flex-1 bg-neutral-700 dark:bg-neutral-200"></span>
+        </span>
+    @endif
         @if (!$category)
             <span class="flex items-center max-w-2xl mx-auto">
                 <span class="flex-1 h-px max-w-2xl bg-zinc-700 dark:bg-zinc-200"></span>
@@ -17,5 +18,7 @@
                 </span>
                 <span class="flex-1 h-px max-w-2xl bg-zinc-700 dark:bg-zinc-200"></span>
             </span>
-        @endif
-    </div>
+            <span class="h-px flex-1 bg-neutral-700 dark:bg-neutral-200"></span>
+        </span>
+    @endif
+</div>

@@ -1,11 +1,2 @@
-My current personal project.
-
-I recently have began CrossFit and learning about Stoicism, and both have changed my life a great deal.
-
-I wanted to make an app where people could set "non-negotiables" and work towards their goals! 
-
-Its a work in progress, so I can only show a video as of now.
-
-Made with TALL stack. Tailwind Alpinejs Livewire Laravel
-
-https://www.loom.com/share/564488b58f2b4711baef4c0555a7a9b8
+![image](https://github.com/user-attachments/assets/07b5a2fc-3b66-46a8-b4cf-fe72ccfcbb4b)
+![image](https://github.com/user-attachments/assets/159541e9-2f6b-4f04-98b7-5e54abc30bc4)
