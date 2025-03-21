@@ -20,7 +20,7 @@
     @if ($message)
         <div
             x-show="show"
-            class="bg-neutral-200 border text-center p-1 border-neutral-400 text-neutral-700 rounded relative"
+            class="relative p-1 text-center border rounded bg-zinc-200 border-zinc-400 text-zinc-700"
             role="alert"
         >
             <span class="block sm:inline">{{ $message }}</span>

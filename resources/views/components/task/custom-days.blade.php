@@ -50,13 +50,13 @@
         },
     }" 
     class="w-full mb-8 flex flex-col gap-1" x-on:keydown="highlightFirstMatchingOption($event.key)" x-on:keydown.esc.window="isOpen = false, openedWithKeyboard = false">
-<label for="skills" class="w-fit pl-0.5 text-base text-neutral-600 dark:text-neutral-300">Select Days</label>
+<label for="skills" class="w-fit pl-0.5 text-base text-neutral-900 dark:text-neutral-100">Select Days</label>
 <div x-text="selectedOptions" class="text-white"></div>
 {{ $form['customTaskDays'] ?? '' }}
 <div class="relative">
 
     <!-- trigger button  -->
-    <button type="button" role="combobox" class="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap shadow-sm dark:shadow-neutral-600 border-neutral-300 bg-neutral-50 px-4 py-2 text-sm font-medium capitalize tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:focus-visible:outline-white border rounded-sm" aria-haspopup="listbox" aria-controls="skillsList" x-on:click="isOpen = ! isOpen" x-on:keydown.down.prevent="openedWithKeyboard = true" x-on:keydown.enter.prevent="openedWithKeyboard = true" x-on:keydown.space.prevent="openedWithKeyboard = true" x-bind:aria-label="setLabelText()" x-bind:aria-expanded="isOpen || openedWithKeyboard">
+    <button type="button" role="combobox" class="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap shadow-sm dark:shadow-neutral-600 border-neutral-300 bg-neutral-50 px-4 py-2 text-sm font-medium capitalize tracking-wide text-neutral-900 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:focus-visible:outline-white border rounded-sm" aria-haspopup="listbox" aria-controls="skillsList" x-on:click="isOpen = ! isOpen" x-on:keydown.down.prevent="openedWithKeyboard = true" x-on:keydown.enter.prevent="openedWithKeyboard = true" x-on:keydown.space.prevent="openedWithKeyboard = true" x-bind:aria-label="setLabelText()" x-bind:aria-expanded="isOpen || openedWithKeyboard">
         <span class="text-sm w-full font-normal text-start overflow-hidden text-ellipsis  whitespace-nowrap"  x-text="setLabelText()"></span>
         <!-- Chevron  -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
@@ -68,7 +68,7 @@
         <template x-for="(item, index) in options" x-bind:key="item.value">
             <!-- option  -->
             <li role="option">
-                <label class="flex items-center gap-2 px-4 py-3 text-sm font-medium text-neutral-600 hover:bg-neutral-950/5 has-focus:bg-neutral-950/5 dark:text-neutral-300 dark:hover:bg-white/5 dark:has-focus:bg-white/5 has-checked:text-neutral-900 dark:has-checked:text-white has-disabled:cursor-not-allowed has-disabled:opacity-75" x-bind:for="'checkboxOption' + index">
+                <label class="flex items-center gap-2 px-4 py-3 text-sm font-medium text-neutral-900 hover:bg-neutral-950/5 has-focus:bg-neutral-950/5 dark:text-neutral-100 dark:hover:bg-white/5 dark:has-focus:bg-white/5 has-checked:text-neutral-900 dark:has-checked:text-white has-disabled:cursor-not-allowed has-disabled:opacity-75" x-bind:for="'checkboxOption' + index">
                     <div class="relative flex items-center">
                         <input 
                             type="checkbox" 

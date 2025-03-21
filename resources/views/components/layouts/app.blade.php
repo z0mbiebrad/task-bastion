@@ -24,7 +24,7 @@
         }" 
         x-init="$watch('darkMode', val => localStorage.theme = val ? 'dark' : 'light')" 
         :class="{ 'dark': darkMode }"
-        class="font-sans antialiased bg-white dark:bg-black"
+        class="font-sans antialiased bg-zinc-50 dark:bg-zinc-900"
     >
 
         <!-- Page Content -->

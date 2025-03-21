@@ -22,7 +22,9 @@
         @if($tasks->count() === 0)
             <x-hero />
         @endif
-
+        
+        <x-task-toggle />
+        
         @foreach ($this->groupedTasks as $category => $tasks)
 
             <x-category-header :category="$category"/>
