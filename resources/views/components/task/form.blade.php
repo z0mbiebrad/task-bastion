@@ -10,8 +10,7 @@
                 }"
 >
     <form
-
-        class="px-6 md:px-0 py-4 border-b max-w-2xl mx-auto border-neutral-300 dark:border-neutral-700"
+        class="max-w-2xl px-6 py-4 mx-auto border-b md:px-0 border-neutral-300 dark:border-neutral-700"
         wire:submit.prevent="{{ $submitAction }}"
     >
             <x-task.input
@@ -24,7 +23,7 @@
                 x-show="showFields"
             >
                 
-                <div class="flex justify-between mx-auto gap-4">
+                <div class="flex justify-between gap-4 mx-auto">
                     <x-task.category-input />
 
                     <x-task.days-a-week

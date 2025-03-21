@@ -16,7 +16,7 @@ trait HandlesTasks
     public function loadTasks()
     {
         $this->currentDay = strtolower(now()->format('l'));
-        $customCurrent = Task::where('custom_task_days', 'LIKE', '%' . $this->currentDay . '%')->get();
+        $this->customCurrent = Task::where('custom_task_days', 'LIKE', '%' . $this->currentDay . '%')->get();
         $this->allTasks = Auth::check()
             ? auth()->user()->tasks
             : GuestTask::where('guest_id', session('guest_id'))->get();
@@ -25,7 +25,7 @@ trait HandlesTasks
             ? $this->allTasks->whereIn('task_days', ['weekdays', 'daily'])
             : $this->allTasks->whereIn('task_days', ['weekends', 'daily']);
 
-        $this->tasks = $this->todaysTasks->merge($customCurrent);
+        $this->tasks = $this->todaysTasks->merge($this->customCurrent);
         $this->dispatch('progress-bar');
     }
 
@@ -58,7 +58,7 @@ trait HandlesTasks
         if ($this->toggle) {
             $this->tasks = $this->allTasks;
         } else {
-            $this->tasks = $this->todaysTasks;
+            $this->tasks = $this->todaysTasks->merge($this->customCurrent);
         }
     }
 }
