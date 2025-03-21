@@ -13,7 +13,7 @@
     <div class="flex items-center gap-6"> 
         <button 
             @click="darkMode = !darkMode" 
-            class="cursor-pointer text-neutral-600 hover:text-black hover:cursor-pointer dark:text-neutral-300 dark:hover:text-white"
+            class="cursor-pointer text-neutral-900 hover:text-black hover:cursor-pointer dark:text-neutral-100 dark:hover:text-white"
         >
             <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
@@ -32,7 +32,7 @@
                 <a 
                     @click="editClicked = !editClicked"
                     wire:click="$dispatch('edit-toggle')"
-                    class="flex items-center font-medium cursor-pointer text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white hover:cursor-pointer"
+                    class="flex items-center font-medium cursor-pointer text-neutral-900 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-100 dark:hover:text-white hover:cursor-pointer"
                 >
                     Edit Tasks
                     <svg x-cloak x-show="editClicked" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-1 size-5">
@@ -47,26 +47,26 @@
             <li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="font-medium cursor-pointer text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
+                    <button type="submit" class="font-medium cursor-pointer text-neutral-900 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-100 dark:hover:text-white">
                         Logout
                     </button>
                 </form>
             </li>
         @else
             <li>
-                <a href="{{ route('login') }}" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
+                <a href="{{ route('login') }}" class="font-medium text-neutral-900 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-100 dark:hover:text-white">
                     Login
                 </a>
             </li>
             <li>
-                <a href="{{ route('register') }}" class="font-medium text-neutral-600 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-300 dark:hover:text-white">
+                <a href="{{ route('register') }}" class="font-medium text-neutral-900 underline-offset-2 hover:text-black focus:outline-hidden focus:underline dark:text-neutral-100 dark:hover:text-white">
                     Register
                 </a>
             </li>
         @endauth
         </ul>
         <!-- Mobile Menu Button -->
-        <button x-on:click="mobileMenuIsOpen = !mobileMenuIsOpen" x-bind:aria-expanded="mobileMenuIsOpen" x-bind:class="mobileMenuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="flex cursor-pointer text-neutral-600 dark:text-neutral-300 md:hidden" aria-label="mobile menu" aria-controls="mobileMenu">
+        <button x-on:click="mobileMenuIsOpen = !mobileMenuIsOpen" x-bind:aria-expanded="mobileMenuIsOpen" x-bind:class="mobileMenuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="flex cursor-pointer text-neutral-900 dark:text-neutral-100 md:hidden" aria-label="mobile menu" aria-controls="mobileMenu">
             <svg x-cloak x-show="!mobileMenuIsOpen" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
@@ -80,19 +80,19 @@
                 <li class="py-4">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="w-full text-lg font-medium text-left cursor-pointer text-neutral-600 focus:underline dark:text-neutral-300">
+                        <button type="submit" class="w-full text-lg font-medium text-left cursor-pointer text-neutral-900 focus:underline dark:text-neutral-100">
                             Logout
                         </button>
                     </form>
                 </li>
             @else
                 <li class="py-4">
-                    <a href="{{ route('login') }}" class="w-full text-lg font-medium cursor-pointer text-neutral-600 focus:underline dark:text-neutral-300">
+                    <a href="{{ route('login') }}" class="w-full text-lg font-medium cursor-pointer text-neutral-900 focus:underline dark:text-neutral-100">
                         Login
                     </a>
                 </li>
                 <li class="py-4">
-                    <a href="{{ route('register') }}" class="w-full text-lg font-medium cursor-pointer text-neutral-600 focus:underline dark:text-neutral-300">
+                    <a href="{{ route('register') }}" class="w-full text-lg font-medium cursor-pointer text-neutral-900 focus:underline dark:text-neutral-100">
                         Register
                     </a>
                 </li>

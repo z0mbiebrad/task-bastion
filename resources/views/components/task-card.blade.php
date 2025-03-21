@@ -1,6 +1,6 @@
 <label
     for="{{ $task->id }}"
-    class="flex items-center w-11/12 max-w-2xl gap-4 p-4 mx-auto my-6 transition border rounded-lg shadow-sm cursor-pointer dark:shadow-neutral-600 text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:border-neutral-700 dark:bg-zinc-800"
+    class="flex items-center w-11/12 max-w-2xl gap-4 p-4 mx-auto my-6 transition border rounded-lg shadow-sm cursor-pointer dark:shadow-neutral-600 text-neutral-800 dark:text-white bg-zinc-100 dark:border-neutral-700 dark:bg-zinc-800"
     @click="clicked = true"
 >
     <span class="inline-flex items-center">

@@ -45,7 +45,7 @@
 >
     <label
         for="category" 
-        class="w-fit pl-0.5 text-base text-neutral-600 dark:text-neutral-300"
+        class="w-fit pl-0.5 text-base text-neutral-900 dark:text-neutral-100"
     >
         Category
     </label>
@@ -60,7 +60,7 @@
             x-on:keydown.down.prevent="openedWithKeyboard = true" 
             x-on:keydown.enter.prevent="openedWithKeyboard = true" 
             x-on:keydown.space.prevent="openedWithKeyboard = true" 
-            class="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap shadow-sm dark:shadow-neutral-600 border-neutral-300 bg-neutral-50 px-4 py-2 text-sm font-medium capitalize tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:focus-visible:outline-white rounded-sm border" 
+            class="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap shadow-sm dark:shadow-neutral-600 border-neutral-300 bg-neutral-50 px-4 py-2 text-sm font-medium capitalize tracking-wide text-neutral-900 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:focus-visible:outline-white rounded-sm border" 
             x-bind:aria-label="selectedOption ? selectedOption.value : 'Please Select'" 
             x-bind:aria-expanded="isOpen || openedWithKeyboard"
         >
@@ -93,7 +93,7 @@
                     x-on:keydown.enter="setSelectedOption(item)" 
                     x-bind:id="'option-' + index" 
                     tabindex="0"
-                    class="combobox-option inline-flex justify-between gap-6 bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/5 focus-visible:text-neutral-900 focus-visible:outline-hidden dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-50/5 dark:hover:text-white dark:focus-visible:bg-neutral-50/10 dark:focus-visible:text-white" 
+                    class="combobox-option inline-flex justify-between gap-6 bg-neutral-50 px-4 py-2 text-sm text-neutral-900 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/5 focus-visible:text-neutral-900 focus-visible:outline-hidden dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-50/5 dark:hover:text-white dark:focus-visible:bg-neutral-50/10 dark:focus-visible:text-white" 
                 >
                     <!-- Label  -->
                     <span x-bind:class="selectedOption == item ? 'font-bold' : null" x-text="item.label"></span>
