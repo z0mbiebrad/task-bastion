@@ -16,7 +16,7 @@ class TaskIndex extends Component
     public Collection $tasks;
     public Collection $todaysTasks;
     public Collection $allTasks;
-
+    public $toggle = false;
     public $currentDay;
     public string $guest_id = '';
     public array $editing = [];
